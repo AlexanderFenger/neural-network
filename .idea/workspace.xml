@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9e7cd181-0515-4acb-846f-f7b55c2e28a1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/neural-network.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/neural-network.iml" afterDir="false" />
@@ -24,6 +23,7 @@
       <change beforePath="$PROJECT_DIR$/sificc_lib/DataModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/DataModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Simulation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/__init__.py" afterDir="false" />
@@ -58,14 +58,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Alexander Fenger/Desktop/Master/SiFiCC/neural-network",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Alexander Fenger/Desktop/Master/SiFiCC/neural-network&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

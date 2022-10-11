@@ -95,3 +95,12 @@ class Preprocessing:
                       scatterer=self.scatterer,
                       absorber=self.absorber)
         return event
+
+    def export_to_csv(self, only_valid=True, n=0):
+
+        # iterate through all events
+        for event in self.iterate_events():
+            if not event.is_distributed_clusters and only_valid:
+                continue
+
+            # grab all informations from
