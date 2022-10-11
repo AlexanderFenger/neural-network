@@ -39,8 +39,7 @@ class Event:
                  real_compton_pos, real_scatter_dir, identification_code, crossed, clusters_count,
                  clusters_position, clusters_position_unc, clusters_energy, clusters_energy_unc,
                  clusters_entries, event_type,
-                 scatterer, absorber, clusters_limit
-                 ):
+                 scatterer, absorber):
         # define the main values of a simulated event
         self.event_type = event_type
         self.real_primary_energy = real_primary_energy

@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e7cd181-0515-4acb-846f-f7b55c2e28a1" name="Changes" comment="" />
+    <list default="true" id="9e7cd181-0515-4acb-846f-f7b55c2e28a1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/neural-network.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/neural-network.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment_files/SiFiCC_conda_TFGPU_env.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment_files/SiFiCC_conda_TFGPU_env.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/execute_notebook.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate-data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/generate-data.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gpu_execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/gpu_execute_notebook.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model-lsr-cont.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr-cont.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model-lsr-old.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr-old.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model-lsr.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/root-files-analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/root-files-analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/AI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/AIQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/AIQlty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/DataModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/Simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/root_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/root_files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thes_execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/thes_execute_notebook.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -14,6 +51,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Fx1z3PDRTqSnkH183h70wSJ8FB" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -22,7 +62,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/alexa/Desktop/Masterarbeit/SiFiCC/neural-network",
+    "last_opened_file_path": "C:/Users/Alexander Fenger/Desktop/Master/SiFiCC/neural-network",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
@@ -36,5 +76,16 @@
       <updated>1665419179865</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

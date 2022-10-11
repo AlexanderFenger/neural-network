@@ -200,4 +200,12 @@ class utils:
         print('\nreal p position')
         print('\tmean', p_position_mean)
         print('\tstd', p_position_std)
-        
+
+    def export_to_csv(simulation, only_valid=True, n=0):
+
+        # iterate through all events
+        for event in simulation.iterate_events():
+            if not event.is_distributed_clusters and only_valid:
+                continue
+
+            # grab all informations from
