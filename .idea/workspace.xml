@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9e7cd181-0515-4acb-846f-f7b55c2e28a1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/neural-network.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/neural-network.iml" afterDir="false" />
@@ -18,18 +19,18 @@
       <change beforePath="$PROJECT_DIR$/model-lsr-old.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr-old.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model-lsr.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/root-files-analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/root-files-analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/AI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/AIQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/AIQlty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/DataModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/AI.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/AIQlty.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/Simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/Simulation.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/requirements.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/root_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/root_files.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/utilities.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thes_execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/thes_execute_notebook.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

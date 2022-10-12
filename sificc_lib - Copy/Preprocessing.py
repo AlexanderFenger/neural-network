@@ -4,7 +4,7 @@ import sys
 import uproot
 import numpy as np
 from tqdm import tqdm
-from sificc_lib import Event, SiFiCC_Module
+from sificc_lib import root_files, Event, SiFiCC_Module
 
 
 class Preprocessing:
@@ -44,23 +44,14 @@ class Preprocessing:
                                       setup['AbsorberThickness_z'].array()[0],
                                       setup['AbsorberPosition'].array()[0])
 
-    def iterate_events(self, n=None, basket_size=100000, desc='processing root file', bar_update_size=1000):
+    def iterate_events(self, basket_size=100000, desc='processing root file', bar_update_size=1000):
         """
         Iteration through all events within a root file.
         Iteration is done stepwise via root baskets to not overload the memory.
         """
-        # check if n is smaller than the number of entries in the root file
-        # else set entrystop to None to iterate the full root file
-        # adjust total entries for bar progression
-        bar_total = self.num_entries
-        if n > self.num_entries:
-            n = None
-            bar_total = self.num_entries
-        elif n > 0 and n < self.num_entries:
-            bar_total = n
-
+        total = self.num_entries
         # define progress bar
-        prog_bar = tqdm(total=bar_total, ncols=100, file=sys.stdout, desc=desc)
+        prog_bar = tqdm(total=total, ncols=100, file=sys.stdout, desc=desc)
         bar_step = 0
         for start, end, basket in self.tree.iterate(Event.l_leaves, entrysteps=basket_size,
                                                     reportentries=True, namedecode='utf-8',
@@ -112,4 +103,4 @@ class Preprocessing:
             if not event.is_valid and only_valid:
                 continue
 
-            # grab all information from
+            # grab all informations from

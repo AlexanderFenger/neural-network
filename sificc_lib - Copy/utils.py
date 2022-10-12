@@ -9,7 +9,7 @@ class utils:
         #  iterate through all events
         for event in preprocessing.iterate_events():
             # check for tag: is_distributed_clusters
-            if not event.is_distributed_clusters:
+            if not event.is_valid:
                 continue
 
             # check if event is an ideal compton event
@@ -83,11 +83,11 @@ class utils:
         l_matching_idx = []
 
         for event in simulation.iterate_events():
-            if not event.is_distributed_clusters and only_valid:
+            if not event.is_valid and only_valid:
                 continue
-            n_distributed_clusters += 1 if event.is_distributed_clusters else 0
+            n_distributed_clusters += 1 if event.is_valid else 0
             n_compton += 1 if event.is_compton else 0
-            n_complete_compton += 1 if event.is_complete_compton else 0
+            n_complete_compton += 1 if event.is_compton_full else 0
             n_complete_distributed_compton += 1 if event.is_complete_distributed_compton else 0
             n_ideal_compton += 1 if event.is_ideal_compton else 0
             n_ep += 1 if event.is_ep else 0
@@ -145,7 +145,7 @@ class utils:
         l_p_energy = []
         l_p_position = []
         for event in simulation.iterate_events():
-            if not event.is_distributed_clusters and only_valid:
+            if not event.is_valid and only_valid:
                 continue
             l_entries.append(event.clusters_entries)
             l_energies.append(event.clusters_energy)
