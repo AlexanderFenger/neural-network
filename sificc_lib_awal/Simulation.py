@@ -4,7 +4,7 @@
 
 import sys
 import uproot
-from sificc_lib import Event, SiFiCC_Module
+from sificc_lib_awal import Event, SiFiCC_Module
 from tqdm import tqdm
 
 

@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras import backend as K
 import tensorflow as tf
-from sificc_lib import utils
+from sificc_lib_awal import utils
 import pickle as pkl
 import datetime as dt
 import uproot
-from sificc_lib import AI, MyCallback
+from sificc_lib_awal import AI, MyCallback
         
 class AIQlty(AI):
     def __init__(self, data_model, model_name=None):

@@ -19,18 +19,23 @@
       <change beforePath="$PROJECT_DIR$/model-lsr-old.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr-old.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model-lsr.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model-lsr.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/root-files-analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/root-files-analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/AI.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/AIQlty.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/DataModelQlty.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/AI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/AIQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/AIQlty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/DataModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/DataModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/DataModelQlty.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/DataModelQlty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/Event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/SiFiCC_Module.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/SiFiCC_Module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/Simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/Simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/root_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/root_files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib _awal/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib _awal/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/Simulation.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/requirements.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/root_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/root_files.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/utilities.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/thes_execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/thes_execute_notebook.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
