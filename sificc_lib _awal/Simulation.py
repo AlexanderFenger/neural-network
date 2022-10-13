@@ -1,28 +1,23 @@
-# Some header
+# Author: Awal Awal
+# Date: Jul 2020
+# Email: awal.nova@gmail.com
 
 import sys
 import uproot
-import numpy as np
+from sificc_lib import Event, SiFiCC_Module
 from tqdm import tqdm
-from sificc_lib import root_files, Event, SiFiCC_Module
 
 
-class Preprocessing:
-    """Processing of root files, generation of neural network input or csv output"""
+class Simulation:
+    '''Process a ROOT simulation for SiFi-CC detection'''
 
-    # TODO: Processing of root files
-    # TODO: export to csv
-    # TODO: Preprocessing of data for neural network input
-
-    def __init__(self, filename):
-        # open root file with uproot
-        root_file = uproot.open(filename)
-
-        # general tree information
+    def __init__(self, file_name, clusters_limit=6):
+        root_file = uproot.open(file_name)
+        self.__setup(root_file)
         self.tree = root_file[b'Events']
         self.num_entries = self.tree.numentries
+        self.clusters_limit = clusters_limit
 
-        # cluster information
         self.clusters_count = self.tree['RecoClusterEnergies']
         self.clusters_position = self.tree['RecoClusterPositions.position']
         self.clusters_position_unc = self.tree['RecoClusterPositions.uncertainty']
@@ -31,31 +26,30 @@ class Preprocessing:
         self.clusters_entries = self.tree['RecoClusterEntries']
 
     def __setup(self, root_file):
-        """
-        grab scatterer and absorber setup/dimension from root file
-        """
+        '''Extract scatterer and absorber modules setup from the ROOT file'''
         setup = root_file[b'Setup']
         self.scatterer = SiFiCC_Module(setup['ScattererThickness_x'].array()[0],
                                        setup['ScattererThickness_y'].array()[0],
                                        setup['ScattererThickness_z'].array()[0],
-                                       setup['ScattererPosition'].array()[0])
+                                       setup['ScattererPosition'].array()[0],
+                                       )
         self.absorber = SiFiCC_Module(setup['AbsorberThickness_x'].array()[0],
                                       setup['AbsorberThickness_y'].array()[0],
                                       setup['AbsorberThickness_z'].array()[0],
-                                      setup['AbsorberPosition'].array()[0])
+                                      setup['AbsorberPosition'].array()[0],
+                                      )
 
-    def iterate_events(self, basket_size=100000, desc='processing root file', bar_update_size=1000):
-        """
-        Iteration through all events within a root file.
-        Iteration is done stepwise via root baskets to not overload the memory.
-        """
-        total = self.num_entries
-        # define progress bar
+    def iterate_events(self, basket_size=100000, desc='processing root file',
+                       bar_update_size=1000, entrystart=None):
+        '''Iterate throughout all the events within the ROOT file.
+        Returns an event object on each step.
+        '''
+        total = self.num_entries if entrystart is None else self.num_entries - entrystart
         prog_bar = tqdm(total=total, ncols=100, file=sys.stdout, desc=desc)
         bar_step = 0
         for start, end, basket in self.tree.iterate(Event.l_leaves, entrysteps=basket_size,
                                                     reportentries=True, namedecode='utf-8',
-                                                    entrystart=0, entrystop=None):
+                                                    entrystart=entrystart, entrystop=None):
             length = end - start
             for idx in range(length):
                 yield self.__event_at_basket(basket, idx)
@@ -67,10 +61,16 @@ class Preprocessing:
         prog_bar.update(self.num_entries % bar_update_size)
         prog_bar.close()
 
+    def get_event(self, position):
+        '''Return event object at a certain position within the ROOT file
+        '''
+        for basket in self.tree.iterate(Event.l_leaves, entrystart=position, entrystop=position + 1,
+                                        namedecode='utf-8'):
+            return self.__event_at_basket(basket, 0)
+
     def __event_at_basket(self, basket, position):
-        """
-        grab event from a root basket at a given position
-        """
+        '''Create and return event object at a certain position from a ROOT basket of data
+        '''
 
         event = Event(real_primary_energy=basket['Energy_Primary'][position],
                       real_e_energy=basket['RealEnergy_e'][position],
@@ -93,14 +93,8 @@ class Preprocessing:
                       clusters_entries=basket['RecoClusterEntries'][position],
                       event_type=basket['SimulatedEventType'][position],
                       scatterer=self.scatterer,
-                      absorber=self.absorber)
+                      absorber=self.absorber,
+                      clusters_limit=self.clusters_limit
+                      )
         return event
 
-    def export_to_csv(self, only_valid=True, n=0):
-
-        # iterate through all events
-        for event in self.iterate_events():
-            if not event.is_valid and only_valid:
-                continue
-
-            # grab all informations from

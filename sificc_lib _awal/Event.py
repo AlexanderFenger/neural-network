@@ -13,33 +13,20 @@ class Event:
     '''
 
     # list of leaves that are required from a ROOT file to properly instantiate an Event object
-    l_leaves = ['Energy_Primary',
-                'RealEnergy_e',  # Gen: Energy electron
-                'RealEnergy_p',  # Gen:Energy proton
-                'RealPosition_source',  # Gen: position source
-                'SimulatedEventType',  # Gen: Event Tag
-                'RealDirection_source',
-                'RealComptonPosition',  # Gen: position of compton event (in scatterer?)
-                'RealDirection_scatter',
-                'RealPosition_e',
-                'RealInteractions_e',
-                'RealPosition_p',
-                'RealInteractions_p',
-                'Identified',
-                'PurCrossed',
-                'RecoClusterPositions.position',
-                'RecoClusterPositions.uncertainty',
-                'RecoClusterEnergies',
-                'RecoClusterEnergies.value',
-                'RecoClusterEnergies.uncertainty',
-                'RecoClusterEntries']
+    l_leaves = ['Energy_Primary', 'RealEnergy_e', 'RealEnergy_p', 'RealPosition_source', 'SimulatedEventType',
+                'RealDirection_source', 'RealComptonPosition', 'RealDirection_scatter', 'RealPosition_e',
+                'RealInteractions_e', 'RealPosition_p', 'RealInteractions_p', 'Identified', 'PurCrossed',
+                'RecoClusterPositions.position', 'RecoClusterPositions.uncertainty', 'RecoClusterEnergies',
+                'RecoClusterEnergies.value', 'RecoClusterEnergies.uncertainty', 'RecoClusterEntries',
+                ]
 
     def __init__(self, real_primary_energy, real_e_energy, real_p_energy, real_e_positions,
                  real_e_interactions, real_p_positions, real_p_interactions, real_src_pos, real_src_dir,
                  real_compton_pos, real_scatter_dir, identification_code, crossed, clusters_count,
                  clusters_position, clusters_position_unc, clusters_energy, clusters_energy_unc,
                  clusters_entries, event_type,
-                 scatterer, absorber):
+                 scatterer, absorber, clusters_limit
+                 ):
         # define the main values of a simulated event
         self.event_type = event_type
         self.real_primary_energy = real_primary_energy
@@ -104,7 +91,7 @@ class Event:
             self.real_e_position = TVector3(0, 0, 0)
 
         # check if the event is a complete distributed Compton event
-        # complete distributed Compton event= complete Compton event + each e and p go through a secondary 
+        # complete distributed Compton event= complete Compton event + each e and p go through a secondary
         # interaction in a different module of the SiFiCC
         if self.is_complete_compton \
                 and scatterer.is_any_point_inside_x(self.real_p_position_all) \
@@ -114,7 +101,7 @@ class Event:
             self.is_complete_distributed_compton = False
 
         # check if the event is an ideal Compton event and what type is it (EP or PE)
-        # ideal Compton event = complete distributed Compton event where the next interaction of both 
+        # ideal Compton event = complete distributed Compton event where the next interaction of both
         # e and p is in the different modules of SiFiCC
         if self.is_complete_compton \
                 and scatterer.is_point_inside_x(self.real_e_position) \
@@ -232,7 +219,7 @@ class Event:
         return count
 
     def _arg_matching_cluster(self, point):
-        '''Gets a point and returns the index of the first cluster matching with this point 
+        '''Gets a point and returns the index of the first cluster matching with this point
         within its uncertainities. Returns -1 when no cluster matches with `point`'''
 
         for idx, (cluster, cluster_unc) in enumerate(zip(self.clusters_position, self.clusters_position_unc)):
@@ -261,16 +248,16 @@ class Event:
     def get_features(self, sort=True):
         '''Generate and return the training features of the event. Features are of the form:
         [ cluster-1, cluster-2, ..., cluster-n ]
-        
+
         Where the format of each cluster is:
         [
-            cluster entries, 
-            cluster energy, 
-            cluster energy uncertainty, 
-            cluster position (x,y,z), 
-            cluster position uncertainty (x,y,z) 
+            cluster entries,
+            cluster energy,
+            cluster energy uncertainty,
+            cluster position (x,y,z),
+            cluster position uncertainty (x,y,z)
         ]
-        
+
         Output feature dimention is 1x(9*clusters_limit)'''
 
         # sort the clusters and align the number of clusters to match `clusters_limit`
@@ -297,7 +284,7 @@ class Event:
         return features
 
     def get_targets(self):
-        '''Generates and return the event targets. 
+        '''Generates and return the event targets.
         Targets are of dimension 1x11 and the format is:
         [
             event type (is ideal Compton or not),

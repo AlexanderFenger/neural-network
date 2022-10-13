@@ -2,27 +2,6 @@ import numpy as np
 
 
 class utils:
-
-    def plot_numcluster_dist(preprocessing):
-        """plot the distribution of the number of clusters per event"""
-
-        #  iterate through all events
-        for event in preprocessing.iterate_events():
-            # check for tag: is_distributed_clusters
-            if not event.is_valid:
-                continue
-
-            # check if event is an ideal compton event
-            if event.is_ideal_compton:
-                if event.is_clusters_matching:
-                    n_matching_ideal_compton += 1
-                    event._sort_clusters()
-                    l_matching_idx.append(event._arg_matching_cluster(event.real_p_position))
-                    l_matching_idx.append(event._arg_matching_cluster(event.real_e_position))
-                n_overlap_matching_ideal += 1 if event.is_clusters_overlap else 0
-
-            # TODO: add plot
-
     def is_point_inside_cluster(point, cluster, cluster_unc):
         '''Checks if `point` is inside `cluster` within its uncertainties'''
         if np.abs(point.x - cluster.x) <= np.abs(cluster_unc.x) \
@@ -83,11 +62,11 @@ class utils:
         l_matching_idx = []
 
         for event in simulation.iterate_events():
-            if not event.is_valid and only_valid:
+            if not event.is_distributed_clusters and only_valid:
                 continue
-            n_distributed_clusters += 1 if event.is_valid else 0
+            n_distributed_clusters += 1 if event.is_distributed_clusters else 0
             n_compton += 1 if event.is_compton else 0
-            n_complete_compton += 1 if event.is_compton_full else 0
+            n_complete_compton += 1 if event.is_complete_compton else 0
             n_complete_distributed_compton += 1 if event.is_complete_distributed_compton else 0
             n_ideal_compton += 1 if event.is_ideal_compton else 0
             n_ep += 1 if event.is_ep else 0
@@ -145,7 +124,7 @@ class utils:
         l_p_energy = []
         l_p_position = []
         for event in simulation.iterate_events():
-            if not event.is_valid and only_valid:
+            if not event.is_distributed_clusters and only_valid:
                 continue
             l_entries.append(event.clusters_entries)
             l_energies.append(event.clusters_energy)
@@ -222,3 +201,4 @@ class utils:
         print('\nreal p position')
         print('\tmean', p_position_mean)
         print('\tstd', p_position_std)
+
