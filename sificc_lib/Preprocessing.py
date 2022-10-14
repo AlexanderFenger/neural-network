@@ -16,11 +16,11 @@ class Preprocessing:
     def __init__(self, filename):
         # open root file with uproot
         root_file = uproot.open(filename)
+        self.__setup(root_file)
 
         # general tree information
         self.tree = root_file[b'Events']
         self.num_entries = self.tree.numentries
-        self.__setup(root_file)
 
         # cluster information
         self.clusters_count = self.tree['RecoClusterEnergies']
@@ -37,14 +37,16 @@ class Preprocessing:
         setup = root_file[b'Setup']
 
         # test prints
-        print(type(setup["ScattererPorsition"]))
-        print(type(setup["ScattererPorsition"].array()))
-        print(type(setup["ScattererPorsition"].array()[0]))
+        print("##################")
+        print((setup["ScattererPosition"]))
+        print((setup["ScattererPosition"].array()))
+        print((setup["ScattererPosition"].array()[0]))
+        print("##################")
 
         self.scatterer = SiFiCC_Module(setup['ScattererThickness_x'].array()[0],
                                        setup['ScattererThickness_y'].array()[0],
                                        setup['ScattererThickness_z'].array()[0],
-                                       setup['ScattererPosition'].array()[0])
+                                       setup["ScattererPosition"].array()[0])
         self.absorber = SiFiCC_Module(setup['AbsorberThickness_x'].array()[0],
                                       setup['AbsorberThickness_y'].array()[0],
                                       setup['AbsorberThickness_z'].array()[0],
