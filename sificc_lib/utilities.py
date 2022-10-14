@@ -3,7 +3,7 @@ import numpy as np
 
 class utilities:
 
-    def show_root_file_analysis(self, simulation, only_valid=True):
+    def show_root_file_analysis(simulation, only_valid=True):
         import matplotlib.pyplot as plt
         n_distributed_clusters = 0
         n_compton = 0
@@ -52,7 +52,7 @@ class utilities:
         plt.show()
         print('histogram bars\' count:', n)
 
-    def print_event_summary(self, preprocessing):
+    def print_event_summary(preprocessing):
         """Prints out a summary of one random event"""
         # choose random event
         n = 42
@@ -61,4 +61,5 @@ class utilities:
 
         print("\nPrinting event summary\n")
         print("Event number = ", n)
-        print("Event type = ", event.event_type)
+        print("Event type = ", event.event_type, type(event.event_type))
+        print("Energy_primary = ", event.real_primary_energy, type(event.real_primary_energy))

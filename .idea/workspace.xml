@@ -12,7 +12,6 @@
       <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/documentation/.ipynb_checkpoints/SiFi-CC_NN_doc-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/.ipynb_checkpoints/SiFi-CC_NN_doc-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/SiFi-CC_NN_doc.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/SiFi-CC_NN_doc.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environment_files/SiFiCC_conda_TFGPU_env.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment_files/SiFiCC_conda_TFGPU_env.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/execute_notebook.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generate-data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/generate-data.ipynb" afterDir="false" />
@@ -24,7 +23,7 @@
       <change beforePath="$PROJECT_DIR$/sificc_lib/Event.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Event.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/Preprocessing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/SiFiCC_Module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sificc_lib/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sificc_lib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/root_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/root_files.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib/utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib/utilities.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sificc_lib_awal/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/sificc_lib_awal/AI.py" afterDir="false" />
