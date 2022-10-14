@@ -3,7 +3,8 @@
 import sys
 import uproot
 from tqdm import tqdm
-from sificc_lib import Event, SiFiCC_Module
+from sificc_lib import Event
+from sificc_lib.SiFiCC_Module import SiFiCC_Module
 
 
 class Preprocessing:
@@ -35,13 +36,6 @@ class Preprocessing:
         grab scatterer and absorber setup/dimension from root file
         """
         setup = root_file[b'Setup']
-
-        # test prints
-        print("##################")
-        print((setup["ScattererPosition"]))
-        print((setup["ScattererPosition"].array()))
-        print((setup["ScattererPosition"].array()[0]))
-        print("##################")
 
         self.scatterer = SiFiCC_Module(setup['ScattererThickness_x'].array()[0],
                                        setup['ScattererThickness_y'].array()[0],
