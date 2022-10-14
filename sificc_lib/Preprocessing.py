@@ -102,7 +102,7 @@ class Preprocessing:
                       clusters_energy=basket['RecoClusterEnergies.value'][position],
                       clusters_energy_unc=basket['RecoClusterEnergies.uncertainty'][position],
                       clusters_entries=basket['RecoClusterEntries'][position],
-                      event_type=0,
+                      event_type=basket['SimulatedEventType'][position],
                       scatterer=self.scatterer,
                       absorber=self.absorber)
         return event

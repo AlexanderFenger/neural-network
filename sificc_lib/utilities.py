@@ -60,6 +60,6 @@ class utilities:
         event = preprocessing.get_event(position=n)
 
         print("\nPrinting event summary\n")
-        print("Event number = ", n)
-        print("Event type = ", event.event_type, type(event.event_type))
-        print("Energy_primary = ", event.real_primary_energy, type(event.real_primary_energy))
+        print("Event number: ", n)
+        print("Event type: {} | {}".format(event.event_type, type(event.event_type)))
+        print("ClusterPosition: {} | {}".format(event.clusters_position, type(event.clusters_position)))
