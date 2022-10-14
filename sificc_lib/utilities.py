@@ -61,5 +61,5 @@ class utilities:
 
         print("\nPrinting event summary\n")
         print("Event number: ", n)
-        print("Event type: {} | {}".format(event.event_type, type(event.event_type)))
+        print("Event type: {} | {}".format(event.SimulatedEventType, type(event.SimulatedEventType)))
         print("ClusterPosition: {} | {}".format(event.clusters_position, type(event.clusters_position)))

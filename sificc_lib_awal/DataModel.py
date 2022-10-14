@@ -416,7 +416,7 @@ class DataModel():
         l_events_seq = []
         
         for idx, event in enumerate(simulation.iterate_events()):
-            if event.is_valid and ((event_type is None) or (event.event_type == event_type)):
+            if event.is_valid and ((event_type is None) or (event.SimulatedEventType == event_type)):
                 features.append(event.get_features())
                 targets.append(event.get_targets())
                 l_valid_pos.append(True)
