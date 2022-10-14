@@ -16,7 +16,7 @@ class Event:
                 'RealEnergy_e',  # Gen: Energy electron
                 'RealEnergy_p',  # Gen:Energy proton
                 'RealPosition_source',  # Gen: position source
-                'SimulatedEventType',  # Gen: Event Tag
+                # 'SimulatedEventType',  # Gen: Event Tag
                 'RealDirection_source',
                 'RealComptonPosition',  # Gen: position of compton event (in scatterer?)
                 'RealDirection_scatter',

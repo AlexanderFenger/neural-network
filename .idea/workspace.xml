@@ -11,7 +11,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/.ipynb_checkpoints/SiFi-CC_NN_doc-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/.ipynb_checkpoints/SiFi-CC_NN_doc-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environment_files/SiFiCC_conda_TFGPU_env.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment_files/SiFiCC_conda_TFGPU_env.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/execute_notebook.sh" beforeDir="false" afterPath="$PROJECT_DIR$/execute_notebook.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generate-data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/generate-data.ipynb" afterDir="false" />
