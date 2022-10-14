@@ -35,6 +35,12 @@ class Preprocessing:
         grab scatterer and absorber setup/dimension from root file
         """
         setup = root_file[b'Setup']
+
+        # test prints
+        print(type(setup["ScattererPorsition"]))
+        print(type(setup["ScattererPorsition"].array()))
+        print(type(setup["ScattererPorsition"].array()[0]))
+
         self.scatterer = SiFiCC_Module(setup['ScattererThickness_x'].array()[0],
                                        setup['ScattererThickness_y'].array()[0],
                                        setup['ScattererThickness_z'].array()[0],
