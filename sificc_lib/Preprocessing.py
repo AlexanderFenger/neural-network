@@ -2,7 +2,6 @@
 
 import sys
 import uproot
-import numpy as np
 from tqdm import tqdm
 from sificc_lib import Event, SiFiCC_Module
 
@@ -106,10 +105,16 @@ class Preprocessing:
         return event
 
     def export_to_csv(self, only_valid=True, n=0):
-
+        # TODO
         # iterate through all events
         for event in self.iterate_events():
             if not event.is_valid and only_valid:
                 continue
 
             # grab all information from
+
+    def get_event(self, position):
+        """Return event for a given position in the root file"""
+        for basket in self.tree.iterate(Event.l_leaves, entrystart=position, entrystop=position + 1,
+                                        namedecode='utf-8'):
+            return self.__event_at_basket(basket, 0)
