@@ -20,6 +20,7 @@ class Preprocessing:
         # general tree information
         self.tree = root_file[b'Events']
         self.num_entries = self.tree.numentries
+        self.__setup(root_file)
 
         # cluster information
         self.clusters_count = self.tree['RecoClusterEnergies']
