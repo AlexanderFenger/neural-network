@@ -93,10 +93,10 @@ class utilities:
         print("\n Cluster Entries: ")
         print("Energy / Position / Entries / Module")
         for i, cluster in enumerate(event.RecoClusterPosition):
-            print("{} | {} | ({:7.3f}, {:7.3f}, {:7.3f}) | {:3} | Module: {}".format(i,
-                                                                                     0,
-                                                                                     cluster.x,
-                                                                                     cluster.y,
-                                                                                     cluster.z,
-                                                                                     event.RecoClusterEntries[i],
-                                                                                     event.cluster_module(cluster)))
+            print("{:.3f} | {} | ({:7.3f}, {:7.3f}, {:7.3f}) | {:3} | Module: {}".format(i,
+                                                                                         event.RecoClusterEnergies_values[i],
+                                                                                         cluster.x,
+                                                                                         cluster.y,
+                                                                                         cluster.z,
+                                                                                         event.RecoClusterEntries[i],
+                                                                                         event.cluster_module(cluster)))
