@@ -68,6 +68,23 @@ class utilities:
         print("RealPosition_source: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealPosition_source.x,
                                                                         event.RealPosition_source.y,
                                                                         event.RealPosition_source.z))
+        print("RealDirection_source: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealDirection_source.x,
+                                                                         event.RealDirection_source.y,
+                                                                         event.RealDirection_source.z))
+        print("RealComptonPosition: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealComptonPosition.x,
+                                                                        event.RealComptonPosition.y,
+                                                                        event.RealComptonPosition.z))
+        print("RealDirectionScatter: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealDirectionScatter.x,
+                                                                         event.RealDirectionScatter.y,
+                                                                         event.RealDirectionScatter.z))
+        print("RealPosition_e: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealPosition_e.x,
+                                                                   event.RealPosition_e.y,
+                                                                   event.RealPosition_e.z))
+        print("RealInteraction_e: {}".format(event.RealInteraction_e))
+        print("RealPosition_p: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealPosition_p.x,
+                                                                   event.RealPosition_p.y,
+                                                                   event.RealPosition_p.z))
+        print("RealInteraction_p: {}".format(event.RealInteraction_p))
 
         print("\n Cluster Entries: ")
         for i, cluster in enumerate(event.RecoClusterPosition):
