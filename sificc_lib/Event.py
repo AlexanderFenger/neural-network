@@ -61,7 +61,6 @@ class Event:
         self.RecoClusterEnergies_values = RecoClusterEnergies_values
         self.RecoClusterEnergies_uncertainty = RecoClusterEnergies_uncertainty
         self.RecoClusterEntries = RecoClusterEntries
-
         self.scatterer = scatterer
         self.absorber = absorber
 
@@ -72,9 +71,9 @@ class Event:
 
         # check if the event is a valid event by considering the clusters associated with it
         # the event is considered valid if there is at least one cluster within each module of the SiFiCC
-        if self.RecoClusterEnergies >= 2 \
-                and scatterer.is_any_point_inside_x(self.RecoClusterPosition) \
-                and absorber.is_any_point_inside_x(self.RecoClusterPosition):
+        if (self.RecoClusterEnergies >= 2
+                and scatterer.is_any_cluster_inside(self.RecoClusterPosition)
+                and absorber.is_any_cluster_inside(self.RecoClusterPosition)):
             self.is_valid = True
         else:
             self.is_valid = False

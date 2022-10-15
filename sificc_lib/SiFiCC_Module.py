@@ -19,20 +19,23 @@ class SiFiCC_Module:
         self.end_y = self.position.y + self.thickness_y/2
         self.start_z = self.position.z - self.thickness_z/2
         self.end_z = self.position.z + self.thickness_z/2
-        
-    def is_point_inside_x(self, point):
-        '''Checks if `point` is within the module based on the x-axis only.
-        '''
-        if self.start_x < point.x < self.end_x:
-            return True
-        else:
-            return False
-        
-    def is_any_point_inside_x(self, l_points):
-        '''Checks if any point in `l_points` is within the module based on the x-axis only
-        '''
-        for point in l_points:
-            if self.is_point_inside_x(point):
+
+    def is_cluster_inside(self, cluster):
+        """
+        check if given cluster is inside the module
+        """
+        if self.start_x < cluster.x < self.end_x:
+            if self.start_y < cluster.y < self.end_y:
+                if self.start_z < cluster.z < self.end_z:
+                    return True
+        return False
+
+    def is_any_cluster_inside(self, list_cluster):
+        """
+        checks if any point is inside the scatterer/absorber volume
+        """
+        # iterate all clusters in the list
+        for cluster in list_cluster:
+            if self.is_cluster_inside(cluster):
                 return True
-        else:
-            return False
+        return False
