@@ -34,8 +34,8 @@ class Event:
                 'RecoClusterEntries']
 
     def __init__(self, Energy_Primary, RealEnergy_e, RealEnergy_p, RealPosition_source, SimulatedEventType,
-                 RealDirection_source, RealComptonPosition, RealDirection_scatter, RealPosition_e, RealInteraction_e,
-                 RealPosition_p, RealInteraction_p, Identified, PurCrossed, RecoClusterPosition,
+                 RealDirection_source, RealComptonPosition, RealDirection_scatter, RealPosition_e, RealInteractions_e,
+                 RealPosition_p, RealInteractions_p, Identified, PurCrossed, RecoClusterPosition,
                  RecoClusterPosition_uncertainty, RecoClusterEnergies, RecoClusterEnergies_values,
                  RecoClusterEnergies_uncertainty,
                  RecoClusterEntries, scatterer, absorber):
@@ -50,9 +50,9 @@ class Event:
         self.RealComptonPosition = RealComptonPosition
         self.RealDirection_scatter = RealDirection_scatter
         self.RealPosition_e = RealPosition_e
-        self.RealInteraction_e = RealInteraction_e
+        self.RealInteractions_e = RealInteractions_e
         self.RealPosition_p = RealPosition_p
-        self.RealInteraction_p = RealInteraction_p
+        self.RealInteractions_p = RealInteractions_p
         self.Identified = Identified
         self.PurCrossed = PurCrossed
         self.RecoClusterPosition = RecoClusterPosition

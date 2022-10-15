@@ -77,14 +77,20 @@ class utilities:
         print("RealDirectionScatter: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealDirectionScatter.x,
                                                                          event.RealDirectionScatter.y,
                                                                          event.RealDirectionScatter.z))
-        print("RealPosition_e: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealPosition_e.x,
-                                                                   event.RealPosition_e.y,
-                                                                   event.RealPosition_e.z))
-        print("RealInteraction_e: {}".format(event.RealInteraction_e))
-        print("RealPosition_p: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealPosition_p.x,
-                                                                   event.RealPosition_p.y,
-                                                                   event.RealPosition_p.z))
-        print("RealInteraction_p: {}".format(event.RealInteraction_p))
+        print("\nRealPosition_e / RealInteractions_e:")
+        for i in range(len(event.RealInteractions_e)):
+            print("({:7.3f}, {:7.3f}, {:7.3f}) | {}".format(event.RealPosition_e.x[i],
+                                                            event.RealPosition_e.y[i],
+                                                            event.RealPosition_e.z[i],
+                                                            event.RealInteractions_e[i]))
+        print("\nRealPosition_p / RealInteractions_p:")
+        for i in range(len(event.RealInteractions_p)):
+            print("({:7.3f}, {:7.3f}, {:7.3f}) | {}".format(event.RealPosition_p.x[i],
+                                                            event.RealPosition_p.y[i],
+                                                            event.RealPosition_p.z[i],
+                                                            event.RealInteractions_p[i]))
+
+
 
         print("\n Cluster Entries: ")
         for i, cluster in enumerate(event.RecoClusterPosition):
