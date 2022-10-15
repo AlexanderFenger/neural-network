@@ -60,12 +60,19 @@ class utilities:
 
         print("\nPrinting event summary\n")
         print("Event number: ", n)
-        print("Event type: {} | {}".format(event.SimulatedEventType, type(event.SimulatedEventType)))
+        print("Event type: {}".format(event.SimulatedEventType))
+        print("--------------")
+        print("EnergyPrimary: {:.3f}".format(event.Energy_Primary))
+        print("RealEnergy_e: {:.3f}".format(event.RealEnergy_e))
+        print("RealEnergy_p: {:.3f}".format(event.RealEnergy_p))
+        print("RealPosition_source: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealPosition_source.x,
+                                                                        event.RealPosition_source.y,
+                                                                        event.RealPosition_source.z))
 
         print("\n Cluster Entries: ")
-        for cluster, i in enumerate(event.RecoClusterPosition):
-            print("{} | Position: ({}, {}, {} | Module: {})".format(i,
-                                                                    cluster.x,
-                                                                    cluster.y,
-                                                                    cluster.z,
-                                                                    event.cluster_module(event)))
+        for i, cluster in enumerate(event.RecoClusterPosition):
+            print("{} | ({:7.3f}, {:7.3f}, {:7.3f}) | Module: {})".format(i,
+                                                                          cluster.x,
+                                                                          cluster.y,
+                                                                          cluster.z,
+                                                                          event.cluster_module(cluster)))

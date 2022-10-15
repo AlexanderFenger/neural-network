@@ -81,20 +81,6 @@ class Event:
         # check if the event is a Compton event
         self.is_compton = True if self.RealEnergy_e >= 0 else False
 
-        # check if the event is a complete Compton event
-        # complete Compton event= Compton event + 1 e and 2 p interactions in which
-        # 0 < p interaction < 10
-        # 10 <= e interaction < 20
-        # Note: first interaction of p is the compton event
-        if self.is_compton \
-                and len(self.RealPosition_p) >= 2 \
-                and len(self.RealPosition_e) >= 1 \
-                and ((self.RealInteraction_e[1:] > 0) & (self.RealInteraction_p[1:] < 10)).any() \
-                and ((self.RealInteraction_e[0] >= 10) & (self.RealInteraction_e[0] < 20)):
-            self.is_compton_full = True
-        else:
-            self.is_compton_full = False
-
     ####################################################################################################################
 
     def cluster_module(self, cluster, return_int=False):
