@@ -57,7 +57,7 @@ class Event:
         self.PurCrossed = PurCrossed
         self.RecoClusterPosition = RecoClusterPosition
         self.RecoClusterPosition_uncertainty = RecoClusterPosition_uncertainty
-        self.RecoClusterEnergies = RecoClusterEnergies
+        self.RecoClusterEnergies = RecoClusterEnergies  # <=> cluster counts
         self.RecoClusterEnergies_values = RecoClusterEnergies_values
         self.RecoClusterEnergies_uncertainty = RecoClusterEnergies_uncertainty
         self.RecoClusterEntries = RecoClusterEntries
@@ -79,7 +79,7 @@ class Event:
             self.is_valid = False
 
         # check if the event is a Compton event
-        self.is_compton = True if self.RealEnergy_e != 0 else False
+        self.is_compton = True if self.RealEnergy_e >= 0 else False
 
         # check if the event is a complete Compton event
         # complete Compton event= Compton event + 1 e and 2 p interactions in which
@@ -94,3 +94,26 @@ class Event:
             self.is_compton_full = True
         else:
             self.is_compton_full = False
+
+    ####################################################################################################################
+
+    def cluster_module(self, cluster, return_int=False):
+        """
+        returns if cluster is in scatterer or absorber
+        return_int: 0: None; 1: Scatterer; 2: Absorber
+        """
+        if self.scatterer.is_cluster_inside(cluster):
+            if return_int:
+                return 1
+            else:
+                return "Scatterer"
+        if self.absorber.is_cluster_inside(cluster):
+            if return_int:
+                return 2
+            else:
+                return "Absorber"
+        # else
+        if return_int:
+            return 0
+        else:
+            return "None"

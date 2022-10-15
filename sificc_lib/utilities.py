@@ -52,14 +52,20 @@ class utilities:
         plt.show()
         print('histogram bars\' count:', n)
 
-    def print_event_summary(preprocessing):
+    def print_event_summary(preprocessing, n=0):
         """Prints out a summary of one random event"""
-        # choose random event
-        n = 42
 
+        # grab event from root tree
         event = preprocessing.get_event(position=n)
 
         print("\nPrinting event summary\n")
         print("Event number: ", n)
         print("Event type: {} | {}".format(event.SimulatedEventType, type(event.SimulatedEventType)))
-        print("ClusterPosition: {} | {}".format(event.clusters_position, type(event.clusters_position)))
+
+        print("\n Cluster Entries: ")
+        for cluster, i in enumerate(event.RecoClusterPosition):
+            print("{} | Position: ({}, {}, {} | Module: {})".format(i,
+                                                                    cluster.x,
+                                                                    cluster.y,
+                                                                    cluster.z,
+                                                                    event.cluster_module(event)))
