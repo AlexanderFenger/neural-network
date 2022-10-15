@@ -74,9 +74,9 @@ class utilities:
         print("RealComptonPosition: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealComptonPosition.x,
                                                                         event.RealComptonPosition.y,
                                                                         event.RealComptonPosition.z))
-        print("RealDirectionScatter: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealDirectionScatter.x,
-                                                                         event.RealDirectionScatter.y,
-                                                                         event.RealDirectionScatter.z))
+        print("RealDirection_scatter: ({:7.3f}, {:7.3f}, {:7.3f})".format(event.RealDirection_scatter.x,
+                                                                          event.RealDirection_scatter.y,
+                                                                          event.RealDirection_scatter.z))
         print("\nRealPosition_e / RealInteractions_e:")
         for i in range(len(event.RealInteractions_e)):
             print("({:7.3f}, {:7.3f}, {:7.3f}) | {}".format(event.RealPosition_e.x[i],
@@ -90,12 +90,13 @@ class utilities:
                                                             event.RealPosition_p.z[i],
                                                             event.RealInteractions_p[i]))
 
-
-
         print("\n Cluster Entries: ")
+        print("Energy / Position / Entries / Module")
         for i, cluster in enumerate(event.RecoClusterPosition):
-            print("{} | ({:7.3f}, {:7.3f}, {:7.3f}) | Module: {})".format(i,
-                                                                          cluster.x,
-                                                                          cluster.y,
-                                                                          cluster.z,
-                                                                          event.cluster_module(cluster)))
+            print("{} | {} | ({:7.3f}, {:7.3f}, {:7.3f}) | {:3} | Module: {}".format(i,
+                                                                                     0,
+                                                                                     cluster.x,
+                                                                                     cluster.y,
+                                                                                     cluster.z,
+                                                                                     event.RecoClusterEntries[i],
+                                                                                     event.cluster_module(cluster)))
