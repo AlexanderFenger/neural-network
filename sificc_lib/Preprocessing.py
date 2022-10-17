@@ -66,7 +66,7 @@ class Preprocessing:
         bar_step = 0
         for start, end, basket in self.tree.iterate(Event.l_leaves, entrysteps=basket_size,
                                                     reportentries=True, namedecode='utf-8',
-                                                    entrystart=0, entrystop=None):
+                                                    entrystart=0, entrystop=n):
             length = end - start
             for idx in range(length):
                 yield self.__event_at_basket(basket, idx)
