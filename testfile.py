@@ -28,5 +28,6 @@ def export_npz():
     simulation = Simulation(root_files.optimized_0mm)
     DataModel.generate_training_data(simulation=simulation, output_name=dir_main + "/data/" + 'data_test.npz')
 
-
+print("Start testing")
+export_npz()
 

@@ -13,9 +13,9 @@ class Event:
     '''
 
     # list of leaves that are required from a ROOT file to properly instantiate an Event object
-    l_leaves = ['Energy_Primary', 'RealEnergy_e', 'RealEnergy_p', 'RealPosition_source', 'SimulatedEventType',
-                'RealDirection_source', 'RealComptonPosition', 'RealDirection_scatter', 'RealPosition_e',
-                'RealInteractions_e', 'RealPosition_p', 'RealInteractions_p', 'Identified', 'PurCrossed',
+    l_leaves = ['MCEnergy_Primary', 'MCEnergy_e', 'MCEnergy_p', 'MCPosition_source', 'MCSimulatedEventType',
+                'MCDirection_source', 'MCComptonPosition', 'MCDirection_scatter', 'MCPosition_e',
+                'MCInteractions_e', 'MCPosition_p', 'MCInteractions_p', 'Identified', 'PurCrossed',
                 'RecoClusterPositions.position', 'RecoClusterPositions.uncertainty', 'RecoClusterEnergies',
                 'RecoClusterEnergies.value', 'RecoClusterEnergies.uncertainty', 'RecoClusterEntries',
                 ]
