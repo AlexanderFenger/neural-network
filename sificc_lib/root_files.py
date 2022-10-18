@@ -1,7 +1,4 @@
 class root_files:
-    HPC_LLR_20 = '/hpcwork/ae664232/InputforNN/LLR_OPM0001_BD_20.root'
-    HPC_LLR_CONT = '/hpcwork/ae664232/InputforNN/LLR_ContinuesSource.root'
-
-    # Low Statistic root file for testing and exploring the data
-    root_test = "/home/home2/institut_3b/fenger/SiFiCC/InputforNN/ForNNPaper/Inputs/LLR_TestGeometry_BP0mm_TW5ns_EW400ns.root"
-    
+    # root files for optimized geometry described in jonas thesis
+    optimized_0mm = "/net/data_g4rt/projects/SiFiCC/InputforNN/ClusterNNOptimisedGeometry/OptimisedGeometry_BP0mm_2e10protons.root"
+    optimized_5mm = "/net/data_g4rt/projects/SiFiCC/InputforNN/ClusterNNOptimisedGeometry/OptimisedGeometry_BP5mm_4e9protons.root"
