@@ -15,14 +15,14 @@ class Event:
     # list of leaves that are required from a ROOT file to properly instantiate an Event object
     l_leaves = ['MCEnergy_Primary', 'MCEnergy_e', 'MCEnergy_p', 'MCPosition_source', 'MCSimulatedEventType',
                 'MCDirection_source', 'MCComptonPosition', 'MCDirection_scatter', 'MCPosition_e',
-                'MCInteractions_e', 'MCPosition_p', 'MCInteractions_p', 'Identified', 'PurCrossed',
+                'MCInteractions_e', 'MCPosition_p', 'MCInteractions_p', 'Identified',
                 'RecoClusterPositions.position', 'RecoClusterPositions.uncertainty', 'RecoClusterEnergies',
                 'RecoClusterEnergies.value', 'RecoClusterEnergies.uncertainty', 'RecoClusterEntries',
                 ]
 
     def __init__(self, real_primary_energy, real_e_energy, real_p_energy, real_e_positions,
                  real_e_interactions, real_p_positions, real_p_interactions, real_src_pos, real_src_dir,
-                 real_compton_pos, real_scatter_dir, identification_code, crossed, clusters_count,
+                 real_compton_pos, real_scatter_dir, identification_code, clusters_count,
                  clusters_position, clusters_position_unc, clusters_energy, clusters_energy_unc,
                  clusters_entries, event_type,
                  scatterer, absorber, clusters_limit
@@ -41,7 +41,6 @@ class Event:
         self.real_compton_pos = real_compton_pos
         self.real_scatter_dir = real_scatter_dir
         self.identification_code = identification_code
-        self.crossed = crossed
         self.clusters_count = clusters_count
         self.clusters_position = clusters_position
         self.clusters_position_unc = clusters_position_unc

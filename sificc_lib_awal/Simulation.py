@@ -84,7 +84,6 @@ class Simulation:
                       real_compton_pos=basket['MCComptonPosition'][position],
                       real_scatter_dir=basket['MCDirection_scatter'][position],
                       identification_code=basket['Identified'][position],
-                      crossed=basket['PurCrossed'][position],
                       clusters_count=basket['RecoClusterEnergies'][position],
                       clusters_position=basket['RecoClusterPositions.position'][position],
                       clusters_position_unc=basket['RecoClusterPositions.uncertainty'][position],
