@@ -8,7 +8,7 @@ class DataModel():
         cluster entries,
         cluster energy,
         cluster energy uncertainty,
-        cluster position (x,y,z), 
+        cluster position (x,y,z),
         cluster position uncertainty (x,y,z)
     } * clusters_limit
 
