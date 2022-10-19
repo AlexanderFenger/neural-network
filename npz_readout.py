@@ -7,9 +7,10 @@ import os
 dir_main = os.getcwd()
 filename = "data_test.npz"
 
+
 # grab training data from npz file
-data = np.load(dir_main + "/data/" + filename)
-data_features = data["features"]
+# data = np.load(dir_main + "/data/" + filename)
+# data_features = data["features"]
 
 
 # data_targets = data["targets"]
@@ -50,4 +51,41 @@ def plot_cluster_perc(data):
     plt.savefig(dir_main + "/plots/" + "perc_clusters.png")
 
 
-plot_cluster_perc(data_features)
+def train_test_split(filename, r):
+    """take an npz file and split it into training and testing sample"""
+    # r: percentage of data towards training set
+
+    # load initial npz file
+    print("loading ", dir_main + "/data/" + filename + ".npz")
+    data = np.load(dir_main + "/data/" + filename + ".npz")
+
+    data_features = data["features"]
+    data_targets = data["targets"]
+    data_reco = data["reco"]
+    data_sequence = data["sequence"]
+
+    # generate index sequence, shuffle sequence and sample by ratio
+    idx = np.linspace(0, data_features.shape[0] - 1, data_features.shape[0], dtype=int)
+    np.random.shuffle(idx)
+    idx_stop = int(len(idx) * r)
+    idx_train = idx[0:idx_stop]
+    idx_test = idx[idx_stop + 1:]
+
+    # generate npz files
+    print("generating training set")
+    with open(dir_main + "/data/" + filename + "_training.npz", 'wb') as f_train:
+        np.savez_compressed(f_train,
+                            features=data_features[idx_train, :],
+                            targets=data_targets[idx_train, :],
+                            reco=data_reco[idx_train, :],
+                            sequence=data_sequence[idx_train])
+    print("generating test set")
+    with open(dir_main + "/data/" + filename + "_test.npz", 'wb') as f_train:
+        np.savez_compressed(f_train,
+                            features=data_features[idx_test, :],
+                            targets=data_targets[idx_test, :],
+                            reco=data_reco[idx_test, :],
+                            sequence=data_sequence[idx_test])
+
+
+
