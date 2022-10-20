@@ -8,10 +8,12 @@ from sificc_lib.root_files import root_files
 
 ########################################################################################################################
 
+dir_main = os.getcwd()
+
 # test print to check functionality
-preprocessing = Preprocessing(root_files.optimized_0mm)
-print("loaded file: ", root_files.optimized_0mm)
-utilities.print_event_summary(preprocessing)
+preprocessing = Preprocessing(dir_main + root_files.optimized_0mm_local)
+print("loaded file: ", root_files.optimized_0mm_local)
+
 
 # print simulation setup
 print("\nLoad simulation setup: ")
