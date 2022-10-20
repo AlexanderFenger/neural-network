@@ -11,8 +11,6 @@ filename = "data_test.npz"
 # grab training data from npz file
 # data = np.load(dir_main + "/data/" + filename)
 # data_features = data["features"]
-
-
 # data_targets = data["targets"]
 # data_reco = data["reco"]
 # data_sequence = data["sequence"]
@@ -52,7 +50,7 @@ def plot_cluster_perc(data):
 
 
 def train_test_split(filename, r):
-    """take an npz file and split it into training and testing sample"""
+    """take a npz file and split it into training and testing sample"""
     # r: percentage of data towards training set
 
     # load initial npz file
@@ -88,4 +86,52 @@ def train_test_split(filename, r):
                             sequence=data_sequence[idx_test])
 
 
+def plot_pos_dist(filename):
+    """plot the distribution of the real e position and rel p position"""
+    # load initial npz file
+    print("loading ", dir_main + "/data/" + filename + ".npz")
+    data = np.load(dir_main + "/data/" + filename + ".npz")
+    data_targets = data["targets"]
 
+    list_ey = []
+    list_ez = []
+    list_py = []
+    list_pz = []
+    for i in range(data_targets.shape[0]):
+        if data_targets[i, 0] == 1:
+            list_ey.append(data_targets[i, 4])
+            list_ez.append(data_targets[i, 5])
+
+            list_py.append(data_targets[i, 7])
+            list_pz.append(data_targets[i, 8])
+
+    # plot
+    plt.figure()
+    plt.hist2d(list_ey, list_ez, bins=20)
+    plt.title("ideal compton events, scatterer, MC e position")
+    plt.xlabel("y position [mm]")
+    plt.ylabel("z position [mm]")
+    plt.colorbar()
+    plt.show()
+
+    plt.figure()
+    plt.hist2d(list_py, list_pz, bins=20)
+    plt.title("ideal compton events, absorber, MC e position")
+    plt.xlabel("y position [mm]")
+    plt.ylabel("z position [mm]")
+    plt.colorbar()
+    plt.show()
+
+
+def export_npz():
+    # extract Awals features as npz file
+    dir_main = os.getcwd()
+
+    from sificc_lib_awal.Simulation import Simulation
+    from sificc_lib_awal.Event import Event
+    from sificc_lib.root_files import root_files
+    from sificc_lib_awal.DataModel import DataModel
+    import csv
+
+    simulation = Simulation(root_files.optimized_0mm)
+    DataModel.generate_training_data(simulation=simulation, output_name=dir_main + "/data/" + 'data_test.npz')

@@ -83,17 +83,17 @@ class Preprocessing:
         grab event from a root basket at a given position
         """
 
-        event = Event(Energy_Primary=basket['Energy_Primary'][position],
-                      RealEnergy_e=basket['RealEnergy_e'][position],
-                      RealEnergy_p=basket['RealEnergy_p'][position],
-                      RealPosition_e=basket['RealPosition_e'][position],
-                      RealInteractions_e=basket['RealInteractions_e'][position],
-                      RealPosition_p=basket['RealPosition_p'][position],
-                      RealInteractions_p=basket['RealInteractions_p'][position],
-                      RealPosition_source=basket['RealPosition_source'][position],
-                      RealDirection_source=basket['RealDirection_source'][position],
-                      RealComptonPosition=basket['RealComptonPosition'][position],
-                      RealDirection_scatter=basket['RealDirection_scatter'][position],
+        event = Event(MCEnergy_Primary=basket['MCEnergy_Primary'][position],
+                      MCEnergy_e=basket['MCEnergy_e'][position],
+                      MCEnergy_p=basket['MCEnergy_p'][position],
+                      MCPosition_e=basket['MCPosition_e'][position],
+                      MCInteractions_e=basket['MCInteractions_e'][position],
+                      MCPosition_p=basket['MCPosition_p'][position],
+                      MCInteractions_p=basket['MCInteractions_p'][position],
+                      MCPosition_source=basket['MCPosition_source'][position],
+                      MCDirection_source=basket['MCDirection_source'][position],
+                      MCComptonPosition=basket['MCComptonPosition'][position],
+                      MCDirection_scatter=basket['MCDirection_scatter'][position],
                       Identified=basket['Identified'][position],
                       PurCrossed=basket['PurCrossed'][position],
                       RecoClusterEnergies=basket['RecoClusterEnergies'][position],
@@ -102,19 +102,11 @@ class Preprocessing:
                       RecoClusterEnergies_values=basket['RecoClusterEnergies.value'][position],
                       RecoClusterEnergies_uncertainty=basket['RecoClusterEnergies.uncertainty'][position],
                       RecoClusterEntries=basket['RecoClusterEntries'][position],
-                      SimulatedEventType=basket['SimulatedEventType'][position],
+                      MCSimulatedEventType=basket['MCSimulatedEventType'][position],
                       scatterer=self.scatterer,
                       absorber=self.absorber)
         return event
 
-    def export_to_csv(self, only_valid=True, n=0):
-        # TODO
-        # iterate through all events
-        for event in self.iterate_events():
-            if not event.is_valid and only_valid:
-                continue
-
-            # grab all information from
 
     def get_event(self, position):
         """Return event for a given position in the root file"""
