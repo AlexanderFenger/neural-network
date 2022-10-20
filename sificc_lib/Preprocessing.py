@@ -95,7 +95,6 @@ class Preprocessing:
                       MCComptonPosition=basket['MCComptonPosition'][position],
                       MCDirection_scatter=basket['MCDirection_scatter'][position],
                       Identified=basket['Identified'][position],
-                      PurCrossed=basket['PurCrossed'][position],
                       RecoClusterEnergies=basket['RecoClusterEnergies'][position],
                       RecoClusterPosition=basket['RecoClusterPositions.position'][position],
                       RecoClusterPosition_uncertainty=basket['RecoClusterPositions.uncertainty'][position],

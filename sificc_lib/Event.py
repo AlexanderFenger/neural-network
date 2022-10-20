@@ -25,7 +25,6 @@ class Event:
                 'MCPosition_p',
                 'MCInteractions_p',
                 'Identified',
-                'PurCrossed',
                 'RecoClusterPositions.position',
                 'RecoClusterPositions.uncertainty',
                 'RecoClusterEnergies',
@@ -35,7 +34,7 @@ class Event:
 
     def __init__(self, MCEnergy_Primary, MCEnergy_e, MCEnergy_p, MCPosition_source, MCSimulatedEventType,
                  MCDirection_source, MCComptonPosition, MCDirection_scatter, MCPosition_e, MCInteractions_e,
-                 MCPosition_p, MCInteractions_p, Identified, PurCrossed, RecoClusterPosition,
+                 MCPosition_p, MCInteractions_p, Identified, RecoClusterPosition,
                  RecoClusterPosition_uncertainty, RecoClusterEnergies, RecoClusterEnergies_values,
                  RecoClusterEnergies_uncertainty,
                  RecoClusterEntries, scatterer, absorber):
@@ -54,7 +53,6 @@ class Event:
         self.MCPosition_p = MCPosition_p
         self.MCInteractions_p = MCInteractions_p
         self.Identified = Identified
-        self.PurCrossed = PurCrossed
         self.RecoClusterPosition = RecoClusterPosition
         self.RecoClusterPosition_uncertainty = RecoClusterPosition_uncertainty
         self.RecoClusterEnergies = RecoClusterEnergies  # <=> cluster counts
