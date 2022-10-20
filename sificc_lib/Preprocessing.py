@@ -55,12 +55,13 @@ class Preprocessing:
         # else set entrystop to None to iterate the full root file
         # adjust total entries for bar progression
         bar_total = self.num_entries
-        if n > self.num_entries:
-            n = None
-            bar_total = self.num_entries
-        elif n > 0 and n < self.num_entries:
-            bar_total = n
-
+        if n is not None:
+            if n > self.num_entries:
+                n = None
+                bar_total = self.num_entries
+            elif (n > 0 and n < self.num_entries):
+                bar_total = n
+        
         # define progress bar
         prog_bar = tqdm(total=bar_total, ncols=100, file=sys.stdout, desc=desc)
         bar_step = 0
@@ -105,7 +106,6 @@ class Preprocessing:
                       scatterer=self.scatterer,
                       absorber=self.absorber)
         return event
-
 
     def get_event(self, position):
         """Return event for a given position in the root file"""
