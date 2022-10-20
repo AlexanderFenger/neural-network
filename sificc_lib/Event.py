@@ -114,15 +114,15 @@ class Event:
         # ideal Compton event = complete distributed Compton event where the next interaction of both
         # e and p is in the different modules of SiFiCC
         if self.is_compton_complete \
-                and scatterer.is_point_inside_x(self.MCPosition_e_first) \
-                and absorber.is_point_inside_x(self.MCPosition_p_first) \
+                and scatterer.is_cluster_inside(self.MCPosition_e_first) \
+                and absorber.is_cluster_inside(self.MCPosition_p_first) \
                 and self.MCSimulatedEventType == 2:
             self.is_compton_ideal = True
             self.is_ep = True
             self.is_pe = False
         elif self.is_compton_complete \
-                and scatterer.is_point_inside_x(self.MCPosition_p_first) \
-                and absorber.is_point_inside_x(self.MCPosition_e_first) \
+                and scatterer.is_cluster_inside(self.MCPosition_p_first) \
+                and absorber.is_cluster_inside(self.MCPosition_e_first) \
                 and self.MCSimulatedEventType == 2:
             self.is_compton_ideal = True
             self.is_ep = False

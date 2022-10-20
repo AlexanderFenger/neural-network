@@ -61,7 +61,7 @@ class Preprocessing:
                 bar_total = self.num_entries
             elif (n > 0 and n < self.num_entries):
                 bar_total = n
-        
+
         # define progress bar
         prog_bar = tqdm(total=bar_total, ncols=100, file=sys.stdout, desc=desc)
         bar_step = 0
