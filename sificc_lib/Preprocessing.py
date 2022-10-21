@@ -1,6 +1,7 @@
 # Some header
 
 import sys
+import numpy as np
 import uproot
 from tqdm import tqdm
 from sificc_lib import Event
@@ -9,10 +10,6 @@ from sificc_lib.SiFiCC_Module import SiFiCC_Module
 
 class Preprocessing:
     """Processing of root files, generation of neural network input or csv output"""
-
-    # TODO: Processing of root files
-    # TODO: export to csv
-    # TODO: Preprocessing of data for neural network input
 
     def __init__(self, filename):
         # open root file with uproot
@@ -112,3 +109,35 @@ class Preprocessing:
         for basket in self.tree.iterate(Event.l_leaves, entrystart=position, entrystop=position + 1,
                                         namedecode='utf-8'):
             return self.__event_at_basket(basket, 0)
+
+    def generate_data_TYPE01(self):
+        """generate trainable data based on feature list TYPE01"""
+        features = []
+        targets = []
+
+        for idx, event in enumerate(self.iterate_events()):
+            if event.is_valid:
+                event._sort_clusters_by_module()
+
+        features = np.array(features, dtype='float64')
+        targets = np.array(targets, dtype='float64')
+
+        # extract the reco data for the valid events
+        reco = np.concatenate((
+            np.zeros((sum(l_valid_pos), 1)),  # event type
+            simulation.tree['RecoEnergy_e']['value'].array()[l_valid_pos].reshape((-1, 1)),
+            simulation.tree['RecoEnergy_p']['value'].array()[l_valid_pos].reshape((-1, 1)),
+            utils.l_vec_as_np(simulation.tree['RecoPosition_e']['position'].array()[l_valid_pos]),
+            utils.l_vec_as_np(simulation.tree['RecoPosition_p']['position'].array()[l_valid_pos]),
+        ), axis=1)
+        # reco type is true when e energy is not 0
+        reco[:, 0] = reco[:, 1] != 0
+
+        # save features, targets, reco as numpy tensors
+        with open(output_name, 'wb') as f_train:
+            np.savez_compressed(f_train,
+                                features=features,
+                                targets=targets,
+                                reco=reco,
+                                sequence=l_events_seq
+                                )

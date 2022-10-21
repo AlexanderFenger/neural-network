@@ -154,3 +154,41 @@ class Event:
             return 0
         else:
             return "None"
+
+    def _sort_clusters(self):
+        """
+        sort events by highest energy in descending order
+        return: sorted array idx
+        """
+        return np.flip(np.argsort(self.RecoClusterEnergies))
+
+    def _sort_clusters_by_module(self):
+        """
+        sort clusters (sorted by energy) by corresponding module
+        only creates list of array idx's
+        """
+        self.RecoCluster_scatterer = []
+        self.RecoCluster_absorber = []
+
+        idx_sort = self._sort_clusters()
+        for idx in idx_sort:
+            if self.cluster_module(self.RecoClusterPosition[idx], return_int=True) == 1:
+                self.RecoCluster_scatterer.append(idx)
+            if self.cluster_module(self.RecoClusterPosition[idx], return_int=True) == 2:
+                self.RecoCluster_absorber.append(idx)
+
+    def get_features_TYPE01(self):
+        """
+        generate the feature data for TYPE01:
+        Format:
+        [cluster-1, cluster-2] where cluster 1,2 are the highest energy cluster from scatterer/absorber
+
+        Cluster format:
+        [Entries, Energy, Energy uncertainty, Position (x,y,z), Position uncertainty (x,y,z)]
+
+        output dimension: (2*9,1)
+        """
+        # sort cluster by module
+        self._sort_clusters_by_module()
+
+        features = np.concatenate()
