@@ -4,3 +4,4 @@ class root_files:
     optimized_5mm = "/net/data_g4rt/projects/SiFiCC/InputforNN/ClusterNNOptimisedGeometry/OptimisedGeometry_BP5mm_4e9protons.root"
 
     optimized_0mm_local = "/data/OptimisedGeometry_BP0mm_2e10protons.root"
+    optimized_5mm_local = "/data/OptimisedGeometry_BP5mm_4e9protons.root"
