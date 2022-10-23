@@ -436,7 +436,7 @@ class AI:
 
         fig.legend(loc='upper left')
         fig.tight_layout()
-        plt.show()
+        plt.savefig("training_loss.png")
         
     def evaluate(self):
         [loss, e_cluster_loss, p_cluster_loss, type_loss, 

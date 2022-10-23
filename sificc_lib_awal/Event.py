@@ -49,6 +49,9 @@ class Event:
         self.clusters_entries = clusters_entries
         self.clusters_limit = clusters_limit
 
+        self.scatterer = scatterer
+        self.absorber = absorber
+
         # check if the event is a valid event by considering the clusters associated with it
         # the event is considered valid if there are at least one cluster within each module of the SiFiCC
         if self.clusters_count >= 2 \
