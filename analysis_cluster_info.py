@@ -13,7 +13,7 @@ dir_main = os.getcwd()
 plt.rcParams.update({'font.size': 12})
 
 # number of statistics used for analysis
-n = 100000
+n = 10000
 
 ########################################################################################################################
 
@@ -39,11 +39,69 @@ for event in preprocessing_0mm.iterate_events(n=n):
     n_clusters_scatterer[0].append(len(idx_scatterer))
     n_clusters_absorber[0].append(len(idx_absorber))
 
+# iterate through 5mm dataset
+for event in preprocessing_5mm.iterate_events(n=n):
+    # skip all none distributed events
+    if not event.is_distributed:
+        continue
+
+    # read number of clusters per event and per module
+    n_clusters_total[1].append(len(event.RecoClusterPosition))
+    idx_scatterer, idx_absorber = event.sort_clusters_by_module()
+    n_clusters_scatterer[1].append(len(idx_scatterer))
+    n_clusters_absorber[1].append(len(idx_absorber))
+
+########################################################################################################################
 
 bins_cluster = np.arange(-0.5, 10.5, 1.0)
-hist_count, _ = np.histogram(n_clusters_total[0], bins=bins_cluster)
 
 # plot distribution number of cluster per event
+hist_0mm, _ = np.histogram(n_clusters_total[0], bins=bins_cluster)
+hist_5mm, _ = np.histogram(n_clusters_total[1], bins=bins_cluster)
+
 plt.figure()
-plt.bar(bins_cluster[:-1], hist_count, align="edge", color="blue")
+plt.title("Distribution cluster counts (total)")
+plt.xlabel("# of clusters")
+plt.ylabel("counts")
+plt.xlim(0, 11)
+plt.xticks(bins_cluster + 0.5)
+plt.bar(bins_cluster[:-1] + 0.30, hist_0mm / np.sum(hist_0mm), width=0.4, align="center", color="black", alpha=1.0,
+        label="0mm")
+plt.bar(bins_cluster[:-1] + 0.70, hist_5mm / np.sum(hist_5mm), width=0.4, align="center", color="red", alpha=1.0,
+        label="5mm")
+plt.legend()
+plt.show()
+
+# plot distribution number of cluster per event for scatterer
+hist_0mm, _ = np.histogram(n_clusters_scatterer[0], bins=bins_cluster)
+hist_5mm, _ = np.histogram(n_clusters_scatterer[1], bins=bins_cluster)
+
+plt.figure()
+plt.title("Distribution cluster counts (scatterer)")
+plt.xlabel("# of clusters")
+plt.ylabel("counts")
+plt.xlim(-0.5, 11)
+plt.xticks(bins_cluster + 0.5)
+plt.bar(bins_cluster[:-1] + 0.30, hist_0mm / np.sum(hist_0mm), width=0.4, align="center", color="black", alpha=1.0,
+        label="0mm")
+plt.bar(bins_cluster[:-1] + 0.70, hist_5mm / np.sum(hist_5mm), width=0.4, align="center", color="red", alpha=1.0,
+        label="5mm")
+plt.legend()
+plt.show()
+
+# plot distribution number of cluster per event for absorber
+hist_0mm, _ = np.histogram(n_clusters_absorber[0], bins=bins_cluster)
+hist_5mm, _ = np.histogram(n_clusters_absorber[1], bins=bins_cluster)
+
+plt.figure()
+plt.title("Distribution cluster counts (absorber)")
+plt.xlabel("# of clusters")
+plt.ylabel("counts")
+plt.xlim(-0.5, 11)
+plt.xticks(bins_cluster + 0.5)
+plt.bar(bins_cluster[:-1] + 0.30, hist_0mm / np.sum(hist_0mm), width=0.4, align="center", color="black", alpha=1.0,
+        label="0mm")
+plt.bar(bins_cluster[:-1] + 0.70, hist_5mm / np.sum(hist_5mm), width=0.4, align="center", color="red", alpha=1.0,
+        label="5mm")
+plt.legend()
 plt.show()
