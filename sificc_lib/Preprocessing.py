@@ -81,7 +81,8 @@ class Preprocessing:
         grab event from a root basket at a given position
         """
 
-        event = Event(MCEnergy_Primary=basket['MCEnergy_Primary'][position],
+        event = Event(EventNumber=basket["EventNumber"][position],
+                      MCEnergy_Primary=basket['MCEnergy_Primary'][position],
                       MCEnergy_e=basket['MCEnergy_e'][position],
                       MCEnergy_p=basket['MCEnergy_p'][position],
                       MCPosition_e=basket['MCPosition_e'][position],
@@ -110,34 +111,3 @@ class Preprocessing:
                                         namedecode='utf-8'):
             return self.__event_at_basket(basket, 0)
 
-    def generate_data_TYPE01(self):
-        """generate trainable data based on feature list TYPE01"""
-        features = []
-        targets = []
-
-        for idx, event in enumerate(self.iterate_events()):
-            if event.is_valid:
-                event._sort_clusters_by_module()
-
-        features = np.array(features, dtype='float64')
-        targets = np.array(targets, dtype='float64')
-
-        # extract the reco data for the valid events
-        reco = np.concatenate((
-            np.zeros((sum(l_valid_pos), 1)),  # event type
-            simulation.tree['RecoEnergy_e']['value'].array()[l_valid_pos].reshape((-1, 1)),
-            simulation.tree['RecoEnergy_p']['value'].array()[l_valid_pos].reshape((-1, 1)),
-            utils.l_vec_as_np(simulation.tree['RecoPosition_e']['position'].array()[l_valid_pos]),
-            utils.l_vec_as_np(simulation.tree['RecoPosition_p']['position'].array()[l_valid_pos]),
-        ), axis=1)
-        # reco type is true when e energy is not 0
-        reco[:, 0] = reco[:, 1] != 0
-
-        # save features, targets, reco as numpy tensors
-        with open(output_name, 'wb') as f_train:
-            np.savez_compressed(f_train,
-                                features=features,
-                                targets=targets,
-                                reco=reco,
-                                sequence=l_events_seq
-                                )

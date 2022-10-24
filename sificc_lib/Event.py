@@ -12,7 +12,8 @@ class Event:
     """Represents a single event in a ROOT file"""
 
     # list of leaves that are required from a ROOT file to properly instantiate an Event object
-    l_leaves = ['MCEnergy_Primary',
+    l_leaves = ["EventNumber",
+                'MCEnergy_Primary',
                 'MCEnergy_e',
                 'MCEnergy_p',
                 'MCPosition_source',
@@ -32,7 +33,7 @@ class Event:
                 'RecoClusterEnergies.uncertainty',
                 'RecoClusterEntries']
 
-    def __init__(self, MCEnergy_Primary, MCEnergy_e, MCEnergy_p, MCPosition_source, MCSimulatedEventType,
+    def __init__(self, EventNumber, MCEnergy_Primary, MCEnergy_e, MCEnergy_p, MCPosition_source, MCSimulatedEventType,
                  MCDirection_source, MCComptonPosition, MCDirection_scatter, MCPosition_e, MCInteractions_e,
                  MCPosition_p, MCInteractions_p, Identified, RecoClusterPosition,
                  RecoClusterPosition_uncertainty, RecoClusterEnergies, RecoClusterEnergies_values,
@@ -40,6 +41,7 @@ class Event:
                  RecoClusterEntries, scatterer, absorber):
 
         # define the main values of a simulated event
+        self.EventNumber = EventNumber
         self.MCEnergy_Primary = MCEnergy_Primary
         self.MCEnergy_e = MCEnergy_e
         self.MCEnergy_p = MCEnergy_p
@@ -63,7 +65,7 @@ class Event:
         self.absorber = absorber
 
         # tags for further analysis
-        self.is_valid = False  # at least 2 clusters, one in each module
+        self.is_distributed = False  # at least 2 clusters, one in each module
         self.is_compton = False  # compton scattering occurred (checked by positive electron energy)
         self.is_compton_complete = False  # compton event and 2 cluster in absorber
         self.MCPosition_e_first = TVector3(0, 0, 0)
@@ -75,9 +77,9 @@ class Event:
         if (self.RecoClusterEnergies >= 2
                 and scatterer.is_any_cluster_inside(self.RecoClusterPosition)
                 and absorber.is_any_cluster_inside(self.RecoClusterPosition)):
-            self.is_valid = True
+            self.is_distributed = True
         else:
-            self.is_valid = False
+            self.is_distributed = False
 
         # check if the event is a Compton event
         self.is_compton = True if self.MCEnergy_e >= 0 else False
@@ -155,27 +157,30 @@ class Event:
         else:
             return "None"
 
-    def _sort_clusters(self):
+    def sort_clusters(self):
         """
         sort events by highest energy in descending order
         return: sorted array idx
         """
         return np.flip(np.argsort(self.RecoClusterEnergies))
 
-    def _sort_clusters_by_module(self):
+    def sort_clusters_by_module(self):
         """
         sort clusters (sorted by energy) by corresponding module
         only creates list of array idx's
+        return: sorted array indx scatterer, absorber
         """
-        self.RecoCluster_scatterer = []
-        self.RecoCluster_absorber = []
+        RecoCluster_idx_scatterer = []
+        RecoCluster_idx_absorber = []
 
-        idx_sort = self._sort_clusters()
+        idx_sort = self.sort_clusters()
         for idx in idx_sort:
             if self.cluster_module(self.RecoClusterPosition[idx], return_int=True) == 1:
-                self.RecoCluster_scatterer.append(idx)
+                RecoCluster_idx_scatterer.append(idx)
             if self.cluster_module(self.RecoClusterPosition[idx], return_int=True) == 2:
-                self.RecoCluster_absorber.append(idx)
+                RecoCluster_idx_absorber.append(idx)
+
+        return RecoCluster_idx_scatterer, RecoCluster_idx_absorber
 
     def get_features_TYPE01(self):
         """
@@ -189,6 +194,6 @@ class Event:
         output dimension: (2*9,1)
         """
         # sort cluster by module
-        self._sort_clusters_by_module()
+        self.sort_clusters_by_module()
 
         features = np.concatenate()
