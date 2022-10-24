@@ -56,6 +56,9 @@ def readout_awal_target():
     plt.grid()
     plt.show()
 
+    print("0mm mean std: ", np.std(e_posz_0mm) / np.sqrt(len(e_posz_0mm)))
+    print("5mm mean std: ", np.std(e_posz_5mm) / np.sqrt(len(e_posz_5mm)))
+
     # plot photon position z distribution
     p_posz_0mm = [targets_0mm[i, 8] for i in range(targets_0mm.shape[0]) if targets_0mm[i, 0] != 0]
     p_posz_5mm = [targets_5mm[i, 8] for i in range(targets_5mm.shape[0]) if targets_5mm[i, 0] != 0]
