@@ -136,33 +136,12 @@ class Event:
 
     ####################################################################################################################
 
-    def cluster_module(self, cluster, return_int=False):
-        """
-        returns if cluster is in scatterer or absorber
-        return_int: 0: None; 1: Scatterer; 2: Absorber
-        """
-        if self.scatterer.is_cluster_inside(cluster):
-            if return_int:
-                return 1
-            else:
-                return "Scatterer"
-        if self.absorber.is_cluster_inside(cluster):
-            if return_int:
-                return 2
-            else:
-                return "Absorber"
-        # else
-        if return_int:
-            return 0
-        else:
-            return "None"
-
     def sort_clusters(self):
         """
         sort events by highest energy in descending order
         return: sorted array idx
         """
-        return np.flip(np.argsort(self.RecoClusterEnergies))
+        return np.flip(np.argsort(self.RecoClusterEnergies_values))
 
     def sort_clusters_by_module(self):
         """
@@ -175,12 +154,30 @@ class Event:
 
         idx_sort = self.sort_clusters()
         for idx in idx_sort:
-            if self.cluster_module(self.RecoClusterPosition[idx], return_int=True) == 1:
+            if self.scatterer.is_cluster_inside(self.RecoClusterPosition[idx]):
                 RecoCluster_idx_scatterer.append(idx)
-            if self.cluster_module(self.RecoClusterPosition[idx], return_int=True) == 2:
+            if self.absorber.is_cluster_inside(self.RecoClusterPosition[idx]):
                 RecoCluster_idx_absorber.append(idx)
 
         return RecoCluster_idx_scatterer, RecoCluster_idx_absorber
+
+    def argmatch_cluster(self, tvec3):
+        """
+        takes a point and finds the first cluster matching the point within the cluster uncertainty
+        tvec3: Tvector3 object
+        return: idx if cluster is matched, else -1
+        """
+        # iterate all cluster positions + uncertainty
+        for i in range(len(self.RecoClusterPosition)):
+            tcluster = self.RecoClusterPosition[i]
+            tcluster_unc = self.RecoClusterPosition_uncertainty[i]
+            # check if absolute x,y,z difference is smaller than absolute uncertainty
+            if (abs(tvec3.x - tcluster.x) <= tcluster_unc.x
+                    and abs(tvec3.y - tcluster.y) <= tcluster_unc.y
+                    and abs(tvec3.z - tcluster.z) <= tcluster_unc.z):
+                return i
+        else:
+            return -1
 
     def get_features_TYPE01(self):
         """
