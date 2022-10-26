@@ -172,9 +172,9 @@ class Event:
             tcluster = self.RecoClusterPosition[i]
             tcluster_unc = self.RecoClusterPosition_uncertainty[i]
             # check if absolute x,y,z difference is smaller than absolute uncertainty
-            if (abs(tvec3.x - tcluster.x) <= tcluster_unc.x
-                    and abs(tvec3.y - tcluster.y) <= tcluster_unc.y
-                    and abs(tvec3.z - tcluster.z) <= tcluster_unc.z):
+            if (abs(tvec3.x - tcluster.x) <= abs(tcluster_unc.x)
+                    and abs(tvec3.y - tcluster.y) <= abs(tcluster_unc.y)
+                    and abs(tvec3.z - tcluster.z) <= abs(tcluster_unc.z)):
                 return i
         else:
             return -1
