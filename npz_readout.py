@@ -5,8 +5,6 @@ import os
 ###############################################
 
 dir_main = os.getcwd()
-filename = "data_test.npz"
-
 
 # grab training data from npz file
 # data = np.load(dir_main + "/data/" + filename)
@@ -131,10 +129,9 @@ def export_npz():
     from sificc_lib_awal.Event import Event
     from sificc_lib.root_files import root_files
     from sificc_lib_awal.DataModel import DataModel
-    import csv
 
-    simulation = Simulation(dir_main + root_files.optimized_5mm_local)
+    simulation = Simulation(dir_main + root_files.optimized_0mm)
     DataModel.generate_training_data(simulation=simulation, output_name=dir_main + "/data/" + 'optimized_5mm.npz')
 
-
-train_test_split("optimized_5mm", 0.9)
+export_npz()
+train_test_split("optimized_0mm", 0.9)
