@@ -71,11 +71,13 @@ class AI:
         '''
         if self.callback not in callbacks:
             callbacks.append(self.callback)
-            
-        history = self.model.fit(self.data.generate_batch(augment=shuffle_clusters), 
-                       epochs=epochs, steps_per_epoch=self.data.steps_per_epoch, 
+
+        print("fit model...")
+        history = self.model.fit(self.data.train_x, self.data.train_y,
+                       epochs=epochs, batch_size = 256,
                        validation_data=(self.data.validation_x, self.data.validation_y), 
                        verbose=verbose, callbacks = callbacks)
+        print("model fitted")
         
     def create_model(self, conv_layers=[], classifier_layers=[], dense_layers=[],
                      type_layers=[], pos_layers=[], energy_layers=[], 

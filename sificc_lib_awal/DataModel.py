@@ -1,6 +1,6 @@
 import numpy as np
 from sificc_lib_awal import utils
-
+import time
 
 class DataModel():
     '''Data model of the features and targets for the simulated data.
@@ -199,10 +199,12 @@ class DataModel():
         self.__balanced_training = value
 
     def generate_batch(self, augment=False):
+        print("generating batch data")
         while True:
             self.shuffle(only_train=True)
 
             for step in range(self.steps_per_epoch):
+                time_start = time.time()
                 start = step * self.batch_size
                 end = (step + 1) * self.batch_size
                 # end should not enter the validation range
@@ -218,13 +220,16 @@ class DataModel():
                         1]
                     targets_batch['p_cluster'][:, 1] = np.where(np.equal(targets_batch['p_cluster'][:, [1]], sequence))[
                         1]
-
+                time_end = time.time()
+                print(time_end - time_start)
                 yield (
                     features_batch,
                     targets_batch,
                     targets_batch['type'] * self.weight_compton + \
                     (1 - targets_batch['type']) * self.weight_non_compton
                 )
+                print("batch data generation complete")
+
 
     def __get_augmentation_sequence(self):
         num_clusters = self.clusters_limit
