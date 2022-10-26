@@ -1,0 +1,10 @@
+loss:21.955 - eff:0.007 pur:0.004 in epoch   0 at 2022-10-26 18:30:39
+loss:11.406 - eff:0.004 pur:0.002 in epoch   1 at 2022-10-26 18:33:29
+loss:9.018 - eff:0.027 pur:0.014 in epoch   2 at 2022-10-26 18:36:15
+loss:8.243 - eff:0.111 pur:0.056 in epoch   3 at 2022-10-26 18:39:02
+loss:7.837 - eff:0.130 pur:0.068 in epoch   4 at 2022-10-26 18:41:49
+loss:7.583 - eff:0.154 pur:0.079 in epoch   5 at 2022-10-26 18:44:33
+loss:7.353 - eff:0.138 pur:0.071 in epoch   6 at 2022-10-26 18:47:18
+loss:7.105 - eff:0.116 pur:0.063 in epoch   7 at 2022-10-26 18:50:03
+loss:6.977 - eff:0.162 pur:0.085 in epoch   8 at 2022-10-26 18:52:51
+loss:6.898 - eff:0.159 pur:0.083 in epoch   9 at 2022-10-26 18:55:41
