@@ -47,8 +47,10 @@ def process_data(preprocessing: Preprocessing):
         5: tag CB
         6: cluster-id scatterer highest energy
         7: cluster-id absorber highest energy
-        8: cluster-id matching e-position
-        9: cluster-id matching p-position
+        8: cluster-id matching e-position (position ordered)
+        9: cluster-id matching p-position (position ordered)
+        10: cluster-id matching e-position (energy ordered)
+        11: cluster-id matching p-position (energy ordered)
         """
         event_data = []
 
@@ -88,6 +90,21 @@ def process_data(preprocessing: Preprocessing):
         else:
             event_data.append(-2)
             event_data.append(-2)
+
+        # argmatch clustering for electron energy ordered
+        if event_data[8] not in [-2, -1]:
+            # grab position where cluster idx matches the position in energy sorted idx
+            event_data.append(int(np.where(idx_scatterer == event_data[8])[0]))
+
+        else:
+            event_data.append(event_data[8])
+        # argmatch clustering for photon energy ordered
+        if event_data[9] not in [-2, -1]:
+            # grab position where cluster idx matches the position in energy sorted idx
+            event_data.append(int(np.where(idx_scatterer == event_data[9])[0]))
+
+        else:
+            event_data.append(event_data[9])
 
         # end
         data.append(event_data)
@@ -186,7 +203,7 @@ hist_0mm_absorber_ic, _ = np.histogram([data_0mm[i, 7] for i in range(len(data_0
 
 plt.figure()
 plt.title("Distribution highest energy cluster (0mm)")
-plt.xlabel("cluster idx")
+plt.xlabel("cluster idx (ordered by position)")
 plt.ylabel("counts (normalized per module)")
 plt.xlim(-0.5, 10.5)
 plt.xticks(bins_cluster + 0.5)
@@ -204,14 +221,34 @@ plt.legend()
 plt.show()
 
 ###########################################################################
-# plot distribution cluster idx matching e and p position
+# plot distribution cluster idx matching e and p position (position ordered)
 bins_argmatch = np.arange(-1.5, 10.5, 1.0)
 hist_0mm_e_argmatch, _ = np.histogram(data_0mm[:, 8], bins=bins_argmatch)
 hist_0mm_p_argmatch, _ = np.histogram(data_0mm[:, 9], bins=bins_argmatch)
 
 plt.figure()
 plt.title("Distribution argmatch (0mm, ideal compton)")
-plt.xlabel("cluster idx")
+plt.xlabel("cluster idx (ordered by position)")
+plt.ylabel("counts (normalized)")
+plt.xlim(-1.5, 10)
+plt.xticks(bins_argmatch + 0.5)
+plt.bar(bins_argmatch[:-1] + 0.30, hist_0mm_e_argmatch / np.sum(hist_0mm_e_argmatch), width=0.4, align="center",
+        color="blue", alpha=1.0, label="e pos")
+plt.bar(bins_argmatch[:-1] + 0.70, hist_0mm_p_argmatch / np.sum(hist_0mm_p_argmatch), width=0.4, align="center",
+        color="orange", alpha=1.0, label="p pos")
+plt.legend()
+plt.show()
+
+
+###########################################################################
+# plot distribution cluster idx matching e and p position (energy ordered)
+bins_argmatch = np.arange(-1.5, 10.5, 1.0)
+hist_0mm_e_argmatch, _ = np.histogram(data_0mm[:, 10], bins=bins_argmatch)
+hist_0mm_p_argmatch, _ = np.histogram(data_0mm[:, 11], bins=bins_argmatch)
+
+plt.figure()
+plt.title("Distribution argmatch (0mm, ideal compton)")
+plt.xlabel("cluster idx (ordered by energy)")
 plt.ylabel("counts (normalized)")
 plt.xlim(-1.5, 10)
 plt.xticks(bins_argmatch + 0.5)
