@@ -161,23 +161,36 @@ class Event:
 
         return RecoCluster_idx_scatterer, RecoCluster_idx_absorber
 
-    def argmatch_cluster(self, tvec3):
+    def argmatch_cluster(self, tvec3, indexing=None):
         """
         takes a point and finds the first cluster matching the point within the cluster uncertainty
         tvec3: Tvector3 object
         return: idx if cluster is matched, else -1
         """
-        # iterate all cluster positions + uncertainty
-        for i in range(len(self.RecoClusterPosition)):
-            tcluster = self.RecoClusterPosition[i]
-            tcluster_unc = self.RecoClusterPosition_uncertainty[i]
-            # check if absolute x,y,z difference is smaller than absolute uncertainty
-            if (abs(tvec3.x - tcluster.x) <= abs(tcluster_unc.x)
-                    and abs(tvec3.y - tcluster.y) <= abs(tcluster_unc.y)
-                    and abs(tvec3.z - tcluster.z) <= abs(tcluster_unc.z)):
-                return i
+        if indexing is None:
+            # iterate all cluster positions + uncertainty
+            for i in range(len(self.RecoClusterPosition)):
+                tcluster = self.RecoClusterPosition[i]
+                tcluster_unc = self.RecoClusterPosition_uncertainty[i]
+                # check if absolute x,y,z difference is smaller than absolute uncertainty
+                if (abs(tvec3.x - tcluster.x) <= abs(tcluster_unc.x)
+                        and abs(tvec3.y - tcluster.y) <= abs(tcluster_unc.y)
+                        and abs(tvec3.z - tcluster.z) <= abs(tcluster_unc.z)):
+                    return i
+            else:
+                return -1
         else:
-            return -1
+            # iterate all cluster positions + uncertainty
+            for i, idx in enumerate(indexing):
+                tcluster = self.RecoClusterPosition[idx]
+                tcluster_unc = self.RecoClusterPosition_uncertainty[idx]
+                # check if absolute x,y,z difference is smaller than absolute uncertainty
+                if (abs(tvec3.x - tcluster.x) <= abs(tcluster_unc.x)
+                        and abs(tvec3.y - tcluster.y) <= abs(tcluster_unc.y)
+                        and abs(tvec3.z - tcluster.z) <= abs(tcluster_unc.z)):
+                    return i
+            else:
+                return -1
 
     def get_features_TYPE01(self):
         """

@@ -94,14 +94,14 @@ def process_data(preprocessing: Preprocessing):
         # argmatch clustering for electron energy ordered
         if event_data[8] not in [-2, -1]:
             # grab position where cluster idx matches the position in energy sorted idx
-            event_data.append(int(np.where(idx_scatterer == event_data[8])[0]))
+            event_data.append(event.argmatch_cluster(event.MCPosition_e_first, idx_scatterer))
 
         else:
             event_data.append(event_data[8])
         # argmatch clustering for photon energy ordered
         if event_data[9] not in [-2, -1]:
             # grab position where cluster idx matches the position in energy sorted idx
-            event_data.append(int(np.where(idx_scatterer == event_data[9])[0]))
+            event_data.append(event.argmatch_cluster(event.MCPosition_p_first, idx_absorber))
 
         else:
             event_data.append(event_data[9])
