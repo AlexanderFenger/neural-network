@@ -133,9 +133,9 @@ class utils:
             l_positions_unc.append(np.abs(utils.l_vec_as_np(event.clusters_position_unc, flatten=False)))
 
             if event.is_ideal_compton:
-                l_e_energy.append(event.RealEnergy_e)
+                l_e_energy.append(event.real_e_energy)
                 l_e_position.append(utils.vec_as_np(event.real_e_position).reshape((1, -1)))
-                l_p_energy.append(event.RealEnergy_p)
+                l_p_energy.append(event.real_p_energy)
                 l_p_position.append(utils.vec_as_np(event.real_p_position).reshape((1, -1)))
 
         l_entries = np.concatenate(l_entries)

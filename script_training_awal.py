@@ -14,12 +14,15 @@ from sificc_lib_awal.Simulation import Simulation
 from sificc_lib.root_files import root_files
 from sificc_lib_awal.DataModel import DataModel
 
-# first check if tensorflow is using the GPU
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-print(tf.config.list_physical_devices('GPU'))
+"""
+# calculate normalization
+dir_main = os.getcwd()
+simulation = Simulation(dir_main + root_files.optimized_0mm_local)
+utils.calculate_normalizations(simulation)
+"""
 
 # Define Model name for training
-model_name = "test_model"
+model_name = "base_100ep_optimized0mm"
 dir_main = os.getcwd()
 
 # load the training data
@@ -28,6 +31,7 @@ data = DataModel(dir_main + "/data/" + 'optimized_0mm_training.npz',
                  weight_compton=1, weight_non_compton=1)
 
 # append an extra dimension to the features since we are using convolutional layers
+# 0 padding of convolutional layer?
 data.append_dim = True
 
 # create an AI instance
@@ -76,7 +80,7 @@ l_callbacks = [
 ai.data.balance_training = True
 
 # start the training
-ai.train(epochs=10, shuffle_clusters=False, verbose=2, callbacks=l_callbacks)
+ai.train(epochs=100, shuffle_clusters=False, verbose=2, callbacks=l_callbacks)
 
 # evaluate the AI on the training set
 ai.model.evaluate(ai.data.train_x, ai.data.train_y, verbose=1)
@@ -84,10 +88,6 @@ print()
 
 # plot the training loss
 ai.plot_training_loss(smooth=False)
-
-# evaluate the AI on a higher threshold to get better selection and purity
-ai.type_threshold = .8
-ai.evaluate()
 
 # save the trained model
 ai.save(file_name=model_name)

@@ -307,11 +307,11 @@ class DataModel():
     @property
     def __mean_features(self):
         # define normalization factors
-        mean_entries = [1.7874760910930447]
-        mean_energies = [1.3219832176828306]
-        mean_energies_unc = [0.03352665535144364]
-        mean_positions = [3.08466733e+02, 8.30834656e-02, -8.41913642e-01]
-        mean_positions_unc = [1.05791671, 12.8333989, 0.94994155]
+        mean_entries = [1.7464066073542655]
+        mean_energies = [1.3667445358286856]
+        mean_energies_unc = [0.03458191163464192]
+        mean_positions = [2.07592818e+02,  7.57378788e-02, -1.43824388e+00]
+        mean_positions_unc = [1.04433154, 11.67551171, 0.93842306]
 
         # declare the mean of a single cluster and repeat it throughout the clusters
         mean = np.concatenate((
@@ -327,11 +327,11 @@ class DataModel():
     @property
     def __std_features(self):
         # define normalization factors
-        std_entries = [1.6479899119958636]
-        std_energies = [1.8812291744163367]
-        std_energies_unc = [0.025137531990537407]
-        std_positions = [97.44675577, 30.56710605, 27.5600849]
-        std_positions_unc = [1.01437355, 6.11019272, 0.76225179]
+        std_entries = [1.5979378385156273]
+        std_energies = [1.913599668129607]
+        std_energies_unc = [0.024838238592426752]
+        std_positions = [57.56139832, 29.88393036, 27.18618727]
+        std_positions_unc = [1.00957671, 4.06792256, 0.74774285]
 
         std = np.concatenate((
             std_entries,
@@ -345,10 +345,10 @@ class DataModel():
 
     @property
     def __mean_targets(self):
-        mean_e_energy = [1.207963305458394]
-        mean_p_energy = [2.081498278344268]
-        mean_e_position = [2.02256879e+02, 1.00478623e-02, -3.36698613e+00]
-        mean_p_position = [3.93714750e+02, 1.02343097e-01, 1.31962800e+00]
+        mean_e_energy = [1.6036674419892745]
+        mean_p_energy = [1.89878114332467]
+        mean_e_position = [1.51616142e+02, -2.54720465e-02, -5.48667837e+00]
+        mean_p_position = [2.62083688e+02, -5.38967688e-03,  1.66300781e+00]
 
         mean = np.concatenate((
             [0],
@@ -362,10 +362,10 @@ class DataModel():
 
     @property
     def __std_targets(self):
-        std_e_energy = [1.7854439595674854] / np.array(self.__std_factor)
-        std_p_energy = [1.675908762593649] / np.array(self.__std_factor)
-        std_e_position = [20.45301063, 27.74893174, 27.19126733] / np.array(self.__std_factor)
-        std_p_position = [23.59772062, 28.41093766, 28.10100634] / np.array(self.__std_factor)
+        std_e_energy = [2.0923984540213234] / np.array(self.__std_factor)
+        std_p_energy = [1.5460431478784704] / np.array(self.__std_factor)
+        std_e_position = [13.13528851, 26.38194611, 26.19339642] / np.array(self.__std_factor)
+        std_p_position = [17.74698471, 27.87795828, 27.64487956] / np.array(self.__std_factor)
 
         std = np.concatenate((
             [1],
