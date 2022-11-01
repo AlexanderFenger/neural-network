@@ -28,7 +28,7 @@ def process_data(preprocessing: Preprocessing):
     data = []
 
     # number of statistics used for analysis
-    n = 10000
+    n = None
 
     # iterate through 0mm dataset
     for event in preprocessing.iterate_events(n=n):
@@ -94,14 +94,14 @@ def process_data(preprocessing: Preprocessing):
         # argmatch clustering for electron energy ordered
         if event_data[8] not in [-2, -1]:
             # grab position where cluster idx matches the position in energy sorted idx
-            event_data.append(event.argmatch_cluster(event.MCPosition_e_first, idx_scatterer))
+            event_data.append(event.argmatch_cluster(event.MCPosition_e_first, idx_scatterer, a=3))
 
         else:
             event_data.append(event_data[8])
         # argmatch clustering for photon energy ordered
         if event_data[9] not in [-2, -1]:
             # grab position where cluster idx matches the position in energy sorted idx
-            event_data.append(event.argmatch_cluster(event.MCPosition_p_first, idx_absorber))
+            event_data.append(event.argmatch_cluster(event.MCPosition_p_first, idx_absorber, a=3))
 
         else:
             event_data.append(event_data[9])
@@ -220,41 +220,29 @@ plt.plot(bins_cluster[:-1] + 0.70,
 plt.legend()
 plt.show()
 
-###########################################################################
-# plot distribution cluster idx matching e and p position (position ordered)
+######################################################################################
+# plot distribution cluster idx matching e and p position (position and energy ordered)
 bins_argmatch = np.arange(-1.5, 10.5, 1.0)
 hist_0mm_e_argmatch, _ = np.histogram(data_0mm[:, 8], bins=bins_argmatch)
 hist_0mm_p_argmatch, _ = np.histogram(data_0mm[:, 9], bins=bins_argmatch)
+hist_0mm_e_argmatch_energy, _ = np.histogram(data_0mm[:, 10], bins=bins_argmatch)
+hist_0mm_p_argmatch_energy, _ = np.histogram(data_0mm[:, 11], bins=bins_argmatch)
 
 plt.figure()
-plt.title("Distribution argmatch (0mm, ideal compton)")
-plt.xlabel("cluster idx (ordered by position)")
+plt.title(r"Distribution argmatch 3$\sigma$ (0mm, ideal compton)")
+plt.xlabel("cluster idx")
 plt.ylabel("counts (normalized)")
 plt.xlim(-1.5, 10)
 plt.xticks(bins_argmatch + 0.5)
 plt.bar(bins_argmatch[:-1] + 0.30, hist_0mm_e_argmatch / np.sum(hist_0mm_e_argmatch), width=0.4, align="center",
-        color="blue", alpha=1.0, label="e pos")
+        color="blue", alpha=1.0, label="e interaction\n(sorted by position)")
 plt.bar(bins_argmatch[:-1] + 0.70, hist_0mm_p_argmatch / np.sum(hist_0mm_p_argmatch), width=0.4, align="center",
-        color="orange", alpha=1.0, label="p pos")
-plt.legend()
-plt.show()
-
-
-###########################################################################
-# plot distribution cluster idx matching e and p position (energy ordered)
-bins_argmatch = np.arange(-1.5, 10.5, 1.0)
-hist_0mm_e_argmatch, _ = np.histogram(data_0mm[:, 10], bins=bins_argmatch)
-hist_0mm_p_argmatch, _ = np.histogram(data_0mm[:, 11], bins=bins_argmatch)
-
-plt.figure()
-plt.title("Distribution argmatch (0mm, ideal compton)")
-plt.xlabel("cluster idx (ordered by energy)")
-plt.ylabel("counts (normalized)")
-plt.xlim(-1.5, 10)
-plt.xticks(bins_argmatch + 0.5)
-plt.bar(bins_argmatch[:-1] + 0.30, hist_0mm_e_argmatch / np.sum(hist_0mm_e_argmatch), width=0.4, align="center",
-        color="blue", alpha=1.0, label="e pos")
-plt.bar(bins_argmatch[:-1] + 0.70, hist_0mm_p_argmatch / np.sum(hist_0mm_p_argmatch), width=0.4, align="center",
-        color="orange", alpha=1.0, label="p pos")
+        color="orange", alpha=1.0, label="p interaction \n(sorted by position)")
+plt.plot(bins_argmatch[:-1] + 0.30,
+         hist_0mm_e_argmatch_energy / np.sum(hist_0mm_e_argmatch_energy)
+         , color="darkblue", linestyle="-.", label="e interaction\n(sorted by energy)", marker="x")
+plt.plot(bins_argmatch[:-1] + 0.70,
+         hist_0mm_p_argmatch_energy / np.sum(hist_0mm_p_argmatch_energy)
+         , color="darkorange", linestyle="--", label="p interaction\n(sorted by energy)", marker="o")
 plt.legend()
 plt.show()
