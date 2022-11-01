@@ -13,14 +13,14 @@ class Event:
     '''
 
     # list of leaves that are required from a ROOT file to properly instantiate an Event object
-    l_leaves = ['MCEnergy_Primary', 'MCEnergy_e', 'MCEnergy_p', 'MCPosition_source', 'MCSimulatedEventType',
+    l_leaves = ["EventNumber",'MCEnergy_Primary', 'MCEnergy_e', 'MCEnergy_p', 'MCPosition_source', 'MCSimulatedEventType',
                 'MCDirection_source', 'MCComptonPosition', 'MCDirection_scatter', 'MCPosition_e',
                 'MCInteractions_e', 'MCPosition_p', 'MCInteractions_p', 'Identified',
                 'RecoClusterPositions.position', 'RecoClusterPositions.uncertainty', 'RecoClusterEnergies',
                 'RecoClusterEnergies.value', 'RecoClusterEnergies.uncertainty', 'RecoClusterEntries',
                 ]
 
-    def __init__(self, real_primary_energy, real_e_energy, real_p_energy, real_e_positions,
+    def __init__(self, EventNumber, real_primary_energy, real_e_energy, real_p_energy, real_e_positions,
                  real_e_interactions, real_p_positions, real_p_interactions, real_src_pos, real_src_dir,
                  real_compton_pos, real_scatter_dir, identification_code, clusters_count,
                  clusters_position, clusters_position_unc, clusters_energy, clusters_energy_unc,
@@ -28,6 +28,7 @@ class Event:
                  scatterer, absorber, clusters_limit
                  ):
         # define the main values of a simulated event
+        self.EventNumber = EventNumber
         self.event_type = event_type
         self.real_primary_energy = real_primary_energy
         self.real_e_energy = real_e_energy

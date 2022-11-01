@@ -72,7 +72,8 @@ class Simulation:
         '''Create and return event object at a certain position from a ROOT basket of data
         '''
 
-        event = Event(real_primary_energy=basket['MCEnergy_Primary'][position],
+        event = Event(EventNumber=basket["EventNumber"][position],
+                      real_primary_energy=basket['MCEnergy_Primary'][position],
                       real_e_energy=basket['MCEnergy_e'][position],
                       real_p_energy=basket['MCEnergy_p'][position],
                       real_e_positions=basket['MCPosition_e'][position],

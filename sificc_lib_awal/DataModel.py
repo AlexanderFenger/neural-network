@@ -426,7 +426,7 @@ class DataModel():
                 features.append(event.get_features())
                 targets.append(event.get_targets())
                 l_valid_pos.append(True)
-                l_events_seq.append(idx)
+                l_events_seq.append(event.EventNumber)
             else:
                 l_valid_pos.append(False)
 
