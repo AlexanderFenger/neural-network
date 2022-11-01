@@ -161,10 +161,11 @@ class Event:
 
         return RecoCluster_idx_scatterer, RecoCluster_idx_absorber
 
-    def argmatch_cluster(self, tvec3, indexing=None):
+    def argmatch_cluster(self, tvec3, indexing=None, a=1):
         """
         takes a point and finds the first cluster matching the point within the cluster uncertainty
         tvec3: Tvector3 object
+        a: sigma range (factor multiplied to sigma)
         return: idx if cluster is matched, else -1
         """
         if indexing is None:
@@ -173,9 +174,9 @@ class Event:
                 tcluster = self.RecoClusterPosition[i]
                 tcluster_unc = self.RecoClusterPosition_uncertainty[i]
                 # check if absolute x,y,z difference is smaller than absolute uncertainty
-                if (abs(tvec3.x - tcluster.x) <= abs(tcluster_unc.x)
-                        and abs(tvec3.y - tcluster.y) <= abs(tcluster_unc.y)
-                        and abs(tvec3.z - tcluster.z) <= abs(tcluster_unc.z)):
+                if (abs(tvec3.x - tcluster.x) <= a * abs(tcluster_unc.x)
+                        and abs(tvec3.y - tcluster.y) <= a * abs(tcluster_unc.y)
+                        and abs(tvec3.z - tcluster.z) <= a * abs(tcluster_unc.z)):
                     return i
             else:
                 return -1
