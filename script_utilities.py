@@ -26,7 +26,7 @@ def generate_npz_resultsMC(root_mc, root_nn, npz_filename):
     import numpy as np
     import uproot
     from sificc_lib.root_files import root_files
-    from sificc_lib.Preprocessing import Preprocessing
+    from sificc_lib_awal.Simulation import Simulation
 
     # define dataframe header
     df_header = ["EventNumber",
@@ -52,42 +52,44 @@ def generate_npz_resultsMC(root_mc, root_nn, npz_filename):
                  "MCPosition_e.z",
                  "MCPosition_p.x",
                  "MCPosition_p.y",
-                 "MCPosition_p.z"]
+                 "MCPosition_p.z",
+                 "IdealComptonEvent"]
 
     # create RootData object
-    root_mc_data = Preprocessing(root_mc)
+    root_mc_data = Simulation(root_mc)
 
     # create dataframe
     df = np.zeros(shape=(root_mc_data.num_entries, len(df_header)))
 
-    for i, event in enumerate(root_mc_data.iterate_events(n=None)):
+    for i, event in enumerate(root_mc_data.iterate_events()):
         # define empty event data
         df_row = np.zeros(shape=(1, len(df_header)))
         # grab event data
         df_row[0, :] = [event.EventNumber,
-                        event.MCSimulatedEventType,
-                        event.Identified,
+                        event.event_type,
+                        event.identification_code,
                         -1,  # add minus one to mark events not predicted by neural network
-                        event.MCEnergy_e,
-                        event.MCEnergy_p,
-                        event.MCPosition_source.x,
-                        event.MCPosition_source.y,
-                        event.MCPosition_source.z,
-                        event.MCDirection_source.x,
-                        event.MCDirection_source.y,
-                        event.MCDirection_source.z,
-                        event.MCComptonPosition.x,
-                        event.MCComptonPosition.y,
-                        event.MCComptonPosition.z,
-                        event.MCDirection_scatter.x,
-                        event.MCDirection_scatter.y,
-                        event.MCDirection_scatter.z,
-                        event.MCPosition_e_first.x,
-                        event.MCPosition_e_first.y,
-                        event.MCPosition_e_first.z,
-                        event.MCPosition_p_first.x,
-                        event.MCPosition_p_first.y,
-                        event.MCPosition_p_first.z]
+                        event.real_e_energy,
+                        event.real_p_energy,
+                        event.real_src_pos.x,
+                        event.real_src_pos.y,
+                        event.real_src_pos.z,
+                        event.real_src_dir.x,
+                        event.real_src_dir.y,
+                        event.real_src_dir.z,
+                        event.real_compton_pos.x,
+                        event.real_compton_pos.y,
+                        event.real_compton_pos.z,
+                        event.real_scatter_dir.x,
+                        event.real_scatter_dir.y,
+                        event.real_scatter_dir.z,
+                        event.real_e_position.x,
+                        event.real_e_position.y,
+                        event.real_e_position.z,
+                        event.real_p_position.x,
+                        event.real_p_position.y,
+                        event.real_p_position.z,
+                        event.is_ideal_compton]
 
         # write event data into dataframe
         df[i, :] = df_row
@@ -189,6 +191,6 @@ def npz_train_test_split_awal(filename, r):
 
 #################################################################################################################
 
-generate_npz_resultsMC(root3, root4, "optimized_5mm_MCTRUTH.npz")
+generate_npz_resultsMC(root1, root2, "optimized_0mm_MCTRUTH.npz")
 # generate_npz_data(root3, "optimized_5mm")
 # npz_train_test_split_awal(dir_main + "/data/" + "optimized_0mm.npz", 0.8)
