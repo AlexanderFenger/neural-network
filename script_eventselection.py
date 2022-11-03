@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 # define file paths
 dir_main = os.getcwd()
 dir_data = dir_main + "/data/"
+dir_plots = dir_main + "/plots/"
 
 # filenames
 filename1 = "optimized_0mm_MCTruth.npz"
@@ -56,109 +57,124 @@ def print_classifier_stat(df):
 # print_classifier_stat(mc_0mm)
 # print_classifier_stat(mc_5mm)
 
-#######################################################################
-
-# plot MCTruth source position for CB/NN selected events
-# generate histograms
-bins_src = np.arange(-80, 20, 1.0)
-
-hist_src_0mm_nn_correct, _ = np.histogram([mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if mc_0mm[i, 3] in [1, 2]],
-                                          bins=bins_src)
-
-hist_src_5mm_nn_correct, _ = np.histogram([mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if mc_5mm[i, 3] in [1, 2]],
-                                          bins=bins_src)
-
 ###########################################################################################
-# plot distribution MC source position total/ideal compton
+def plot_dist_event_selection(ary_idx, bins, quantity, x_label, save_plots=False):
+    """
+    plot the distribution of a given quantity (given by array index)
+    plot total/ideal compton, ideal compton/CB, ideal compton/NN, ideal compton/CB/NN
+    """
 
-# generate histograms
-bins_src = np.arange(-80, 20, 1.0)
-src_0mm_total = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if mc_0mm[i, 4] != 0.0]
-hist_src_0mm_total, _ = np.histogram(src_0mm_total, bins=bins_src)
-src_5mm_total = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if mc_5mm[i, 4] != 0.0]
-hist_src_5mm_total, _ = np.histogram(src_5mm_total, bins=bins_src)
+    # define bin-range
+    bins = bins
+    width = bins[1] - bins[0]  # bins should always have same width
 
-src_0mm_idealcompton = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 24])]
-hist_src_0mm_idealcompton, _ = np.histogram(src_0mm_idealcompton, bins=bins_src)
-src_5mm_idealcompton = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 24])]
-hist_src_5mm_idealcompton, _ = np.histogram(src_5mm_idealcompton, bins=bins_src)
+    # grab data
+    ary_0mm_total = [mc_0mm[i, ary_idx] for i in range(mc_0mm.shape[0]) if mc_0mm[i, 4] != 0.0]
+    ary_5mm_total = [mc_5mm[i, ary_idx] for i in range(mc_5mm.shape[0]) if mc_5mm[i, 4] != 0.0]
 
-plt.figure()
-plt.title("MC Source position Ideal Compton Event")
-plt.xlabel("z-position [mm]")
-plt.ylabel("counts")
-# total event histogram
-plt.hist(src_0mm_total, bins=bins_src, histtype=u"step", color="black", label="0mm total", density=True, alpha=0.5,
-         linestyle="--")
-plt.hist(src_5mm_total, bins=bins_src, histtype=u"step", color="red", label="5mm total", density=True, alpha=0.5,
-         linestyle="--")
-# ideal compton event histogram
-plt.hist(src_0mm_idealcompton, bins=bins_src, histtype=u"step", color="black", label="0mm Ideal Compton", density=True)
-plt.hist(src_5mm_idealcompton, bins=bins_src, histtype=u"step", color="red", label="5mm Ideal Compton", density=True)
-plt.errorbar(bins_src[1:] - 0.5, hist_src_0mm_idealcompton / np.sum(hist_src_0mm_idealcompton),
-             np.sqrt(hist_src_0mm_idealcompton) / np.sum(hist_src_0mm_idealcompton), color="black", fmt=".")
-plt.errorbar(bins_src[1:] - 0.5, hist_src_5mm_idealcompton / np.sum(hist_src_5mm_idealcompton),
-             np.sqrt(hist_src_5mm_idealcompton) / np.sum(hist_src_5mm_idealcompton), color="red", fmt=".")
-plt.legend()
-plt.grid()
-plt.show()
+    ary_0mm_idealcompton = [mc_0mm[i, ary_idx] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 24])]
+    ary_5mm_idealcompton = [mc_5mm[i, ary_idx] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 24])]
 
-###########################################################################################
-# plot distribution MC source position ideal compton / Cut-based
+    # filtered == non compton events are filtered out since their MC-Truths filled with zeros
+    ary_0mm_cb_filtered = [mc_0mm[i, ary_idx] for i in range(mc_0mm.shape[0]) if
+                           (mc_0mm[i, 2] in [1, 3] and mc_0mm[i, 4] != 0)]
+    ary_5mm_cb_filtered = [mc_5mm[i, ary_idx] for i in range(mc_5mm.shape[0]) if
+                           (mc_5mm[i, 2] in [1, 3] and mc_5mm[i, 4] != 0)]
 
-# bins and ideal compton histograms are taken from above
-# generated cut-based histograms
-src_0mm_cb = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 2] != 0.0 and mc_0mm[i, 4] != 0)]
-hist_src_0mm_cb, _ = np.histogram(src_0mm_cb, bins=bins_src)
-src_5mm_cb = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 2] != 0.0 and mc_5mm[i, 4] != 0)]
-hist_src_5mm_cb, _ = np.histogram(src_5mm_cb, bins=bins_src)
+    ary_0mm_nn = [mc_0mm[i, ary_idx] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 3] in [2])]
+    ary_5mm_nn = [mc_5mm[i, ary_idx] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 3] in [2])]
 
-plt.figure()
-plt.title("MC Source position Cut-based")
-plt.xlabel("z-position [mm]")
-plt.ylabel("counts")
-# total event histogram
-plt.hist(src_0mm_idealcompton, bins=bins_src, histtype=u"step", color="black", label="0mm ideal compton", density=True,
-         alpha=0.5, linestyle="--")
-plt.hist(src_5mm_idealcompton, bins=bins_src, histtype=u"step", color="red", label="5mm ideal compton", density=True,
-         alpha=0.5, linestyle="--")
-# ideal compton event histogram
-plt.hist(src_0mm_cb, bins=bins_src, histtype=u"step", color="black", label="0mm Cut-Based", density=True)
-plt.hist(src_5mm_cb, bins=bins_src, histtype=u"step", color="red", label="5mm Cut-Based", density=True)
-plt.errorbar(bins_src[1:] - 0.5, hist_src_0mm_cb / np.sum(hist_src_0mm_cb),
-             np.sqrt(hist_src_0mm_cb) / np.sum(hist_src_0mm_cb), color="black", fmt=".")
-plt.errorbar(bins_src[1:] - 0.5, hist_src_5mm_cb / np.sum(hist_src_5mm_cb),
-             np.sqrt(hist_src_5mm_cb) / np.sum(hist_src_5mm_cb), color="red", fmt=".")
-plt.legend()
-plt.grid()
-plt.show()
+    # create histograms
+    hist_0mm_total, _ = np.histogram(ary_0mm_total, bins=bins)
+    hist_5mm_total, _ = np.histogram(ary_5mm_total, bins=bins)
+    hist_0mm_idealcompton, _ = np.histogram(ary_0mm_idealcompton, bins=bins)
+    hist_5mm_idealcompton, _ = np.histogram(ary_5mm_idealcompton, bins=bins)
+    hist_0mm_cb_filtered, _ = np.histogram(ary_0mm_cb_filtered, bins=bins)
+    hist_5mm_cb_filtered, _ = np.histogram(ary_5mm_cb_filtered, bins=bins)
+    hist_0mm_nn, _ = np.histogram(ary_0mm_nn, bins=bins)
+    hist_5mm_nn, _ = np.histogram(ary_5mm_nn, bins=bins)
 
-###########################################################################################
-# plot distribution MC source position ideal compton / Cut-based
+    # generate plots
+    # MC Total / MC Ideal Compton
+    plt.figure()
+    plt.title(quantity + " Ideal Compton Events")
+    plt.xlabel(x_label)
+    plt.ylabel("counts (normalized)")
+    # total event histogram
+    plt.hist(ary_0mm_total, bins=bins, histtype=u"step", color="black", label="0mm total", density=True, alpha=0.5,
+             linestyle="--")
+    plt.hist(ary_5mm_total, bins=bins, histtype=u"step", color="red", label="5mm total", density=True, alpha=0.5,
+             linestyle="--")
+    # ideal compton event histogram
+    plt.hist(ary_0mm_idealcompton, bins=bins, histtype=u"step", color="black", label="0mm Ideal Compton",
+             density=True)
+    plt.hist(ary_5mm_idealcompton, bins=bins, histtype=u"step", color="red", label="5mm Ideal Compton",
+             density=True)
+    plt.errorbar(bins[1:] - width / 2, hist_0mm_idealcompton / np.sum(hist_0mm_idealcompton) / width,
+                 np.sqrt(hist_0mm_idealcompton) / np.sum(hist_0mm_idealcompton) / width, color="black", fmt=".")
+    plt.errorbar(bins[1:] - width / 2, hist_5mm_idealcompton / np.sum(hist_5mm_idealcompton) / width,
+                 np.sqrt(hist_5mm_idealcompton) / np.sum(hist_5mm_idealcompton) / width, color="red", fmt=".")
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    if save_plots:
+        plt.savefig(dir_plots + "eventselection_" + quantity + "_total.png")
+    else:
+        plt.show()
 
-# bins and ideal compton histograms are taken from above
-# generated cut-based histograms
-src_0mm_nn = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 3] in [2])]
-hist_src_0mm_nn, _ = np.histogram(src_0mm_nn, bins=bins_src)
-src_5mm_nn = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 3] in [2])]
-hist_src_5mm_nn, _ = np.histogram(src_5mm_nn, bins=bins_src)
+    # MC Ideal Compton / MC CB
+    plt.figure()
+    plt.title(quantity + " CB Event Selection")
+    plt.xlabel(x_label)
+    plt.ylabel("counts (normalized)")
+    # total event histogram
+    plt.hist(ary_0mm_idealcompton, bins=bins, histtype=u"step", color="black", label="0mm Ideal Compton", density=True,
+             alpha=0.5, linestyle="--")
+    plt.hist(ary_5mm_idealcompton, bins=bins, histtype=u"step", color="red", label="5mm Ideal Compton", density=True,
+             alpha=0.5, linestyle="--")
+    # ideal compton event histogram
+    plt.hist(ary_0mm_cb_filtered, bins=bins, histtype=u"step", color="black", label="0mm CB correct*",
+             density=True)
+    plt.hist(ary_5mm_cb_filtered, bins=bins, histtype=u"step", color="red", label="5mm CB correct*",
+             density=True)
+    plt.errorbar(bins[1:] - width / 2, hist_0mm_cb_filtered / np.sum(hist_0mm_cb_filtered) / width,
+                 np.sqrt(hist_0mm_cb_filtered) / np.sum(hist_0mm_cb_filtered) / width, color="black", fmt=".")
+    plt.errorbar(bins[1:] - width / 2, hist_5mm_cb_filtered / np.sum(hist_5mm_cb_filtered) / width,
+                 np.sqrt(hist_5mm_cb_filtered) / np.sum(hist_5mm_cb_filtered) / width, color="red", fmt=".")
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    if save_plots:
+        plt.savefig(dir_plots + "eventselection_" + quantity + "_cb.png")
+    else:
+        plt.show()
 
-plt.figure()
-plt.title("MC Source position Neural Network")
-plt.xlabel("z-position [mm]")
-plt.ylabel("counts")
-# total event histogram
-plt.hist(src_0mm_idealcompton, bins=bins_src, histtype=u"step", color="black", label="0mm ideal compton", density=True,
-         alpha=0.5, linestyle="--")
-plt.hist(src_5mm_idealcompton, bins=bins_src, histtype=u"step", color="red", label="5mm ideal compton", density=True,
-         alpha=0.5, linestyle="--")
-# ideal compton event histogram
-plt.hist(src_0mm_nn, bins=bins_src, histtype=u"step", color="black", label="0mm NN", density=True)
-plt.hist(src_5mm_nn, bins=bins_src, histtype=u"step", color="red", label="5mm NN", density=True)
-plt.errorbar(bins_src[1:] - 0.5, hist_src_0mm_nn / np.sum(hist_src_0mm_nn),
-             np.sqrt(hist_src_0mm_nn) / np.sum(hist_src_0mm_nn) / 100, color="black", fmt=".")
-plt.errorbar(bins_src[1:] - 0.5, hist_src_5mm_nn / np.sum(hist_src_5mm_nn),
-             np.sqrt(hist_src_5mm_nn) / np.sum(hist_src_5mm_nn) / 100, color="red", fmt=".")
-plt.legend()
-plt.grid()
-plt.show()
+    # MC Ideal Compton / MC NN
+    plt.figure()
+    plt.title(quantity + " NN Event Selection")
+    plt.xlabel(x_label)
+    plt.ylabel("counts (normalized)")
+    # total event histogram
+    plt.hist(ary_0mm_idealcompton, bins=bins, histtype=u"step", color="black", label="0mm Ideal Compton", density=True,
+             alpha=0.5, linestyle="--")
+    plt.hist(ary_5mm_idealcompton, bins=bins, histtype=u"step", color="red", label="5mm Ideal Compton", density=True,
+             alpha=0.5, linestyle="--")
+    # ideal compton event histogram
+    plt.hist(ary_0mm_nn, bins=bins, histtype=u"step", color="black", label="0mm NN correct",
+             density=True)
+    plt.hist(ary_5mm_nn, bins=bins, histtype=u"step", color="red", label="5mm NN correct",
+             density=True)
+    plt.errorbar(bins[1:] - width / 2, hist_0mm_nn / np.sum(hist_0mm_nn) / width,
+                 np.sqrt(hist_0mm_nn) / np.sum(hist_0mm_nn) / width, color="black", fmt=".")
+    plt.errorbar(bins[1:] - width / 2, hist_5mm_nn / np.sum(hist_5mm_nn) / width,
+                 np.sqrt(hist_5mm_nn) / np.sum(hist_5mm_nn) / width, color="red", fmt=".")
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    if save_plots:
+        plt.savefig(dir_plots + "eventselection_" + quantity + "_nn.png")
+    else:
+        plt.show()
+
+
+plot_dist_event_selection(11, np.arange(-1, 1.01, 0.01), "MCDirection_source_z", "position [mm]", save_plots=True)
