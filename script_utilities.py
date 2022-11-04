@@ -13,7 +13,7 @@ root4 = dir_main + "/data/" + "base_100ep_optimized5mm_pred.root"
 
 #################################################################################################################
 
-def generate_npz_resultsMC(root_mc, root_nn, npz_filename):
+def generate_npz_resultsMC(root_mc, root_nn_training, root_nn_test, npz_filename):
     """
     extract monte carlo information from root, add the NN event selection tag extracted from Awals NN predictions
 
@@ -53,7 +53,8 @@ def generate_npz_resultsMC(root_mc, root_nn, npz_filename):
                  "MCPosition_p.x",
                  "MCPosition_p.y",
                  "MCPosition_p.z",
-                 "IdealComptonEvent"]
+                 "IdealComptonEvent",
+                 "origin_set"]
 
     # create RootData object
     root_mc_data = Simulation(root_mc)
@@ -89,14 +90,15 @@ def generate_npz_resultsMC(root_mc, root_nn, npz_filename):
                         event.real_p_position.x,
                         event.real_p_position.y,
                         event.real_p_position.z,
-                        event.is_ideal_compton]
+                        event.is_ideal_compton,
+                        0]
 
         # write event data into dataframe
         df[i, :] = df_row
 
     # add the NN identified tag for the neural network predictions
-    # open to extract NN predictions and event number
-    root_nn_data = uproot.open(root_nn)
+    # open to extract NN training predictions and event number
+    root_nn_data = uproot.open(root_nn_training)
     root_nn_data_tree = root_nn_data[b"ConeList"]
 
     # grab entries from leaves "GlobalEventNumber" and "EventType" and store them in arrays
@@ -114,6 +116,35 @@ def generate_npz_resultsMC(root_mc, root_nn, npz_filename):
         # start at first entry of df
         if df[i, 0] == ary_GlobalEventNumber[cidx]:
             df[i, 3] = ary_EventType[cidx]
+            df[i, 25] = 1
+            cidx += 1
+            # end condition
+            if cidx >= len(ary_EventType):
+                break
+        else:
+            continue
+
+    # repeat setps with test dataset
+    # open to extract NN training predictions and event number
+    root_nn_data = uproot.open(root_nn_test)
+    root_nn_data_tree = root_nn_data[b"ConeList"]
+
+    # grab entries from leaves "GlobalEventNumber" and "EventType" and store them in arrays
+    ary_GlobalEventNumber = root_nn_data_tree["GlobalEventNumber"].array()
+    ary_EventType = root_nn_data_tree["EventType"].array()
+
+    # sort both arrays by GlobalEventNumber
+    ary_EventType = ary_EventType[ary_GlobalEventNumber.argsort()]
+    ary_GlobalEventNumber = ary_GlobalEventNumber[ary_GlobalEventNumber.argsort()]
+
+    # iterate the dataframe and scan for matching entries
+    # an extremely dumb iteration algorithm but it works
+    cidx = 0
+    for i in range(df.shape[0]):
+        # start at first entry of df
+        if df[i, 0] == ary_GlobalEventNumber[cidx]:
+            df[i, 3] = ary_EventType[cidx]
+            df[i, 25] = 2
             cidx += 1
             # end condition
             if cidx >= len(ary_EventType):
@@ -191,6 +222,6 @@ def npz_train_test_split_awal(filename, r):
 
 #################################################################################################################
 
-generate_npz_resultsMC(root1, root2, "optimized_0mm_MCTRUTH.npz")
+# generate_npz_resultsMC(root1, root2, "optimized_0mm_MCTRUTH.npz")
 # generate_npz_data(root3, "optimized_5mm")
 # npz_train_test_split_awal(dir_main + "/data/" + "optimized_0mm.npz", 0.8)
