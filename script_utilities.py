@@ -6,9 +6,11 @@ import os
 dir_main = os.getcwd()
 # used files
 root1 = dir_main + "/data/" + "OptimisedGeometry_BP0mm_2e10protons.root"
-root3 = dir_main + "/data/" + "OptimisedGeometry_BP5mm_4e9protons.root"
-root2 = dir_main + "/data/" + "base_100ep_optimized0mm_pred.root"
-root4 = dir_main + "/data/" + "base_100ep_optimized5mm_pred.root"
+root2 = dir_main + "/data/" + "base_100ep_optimized0mm_training_pred.root"
+root3 = dir_main + "/data/" + "base_100ep_optimized0mm_test_pred.root"
+root4 = dir_main + "/data/" + "OptimisedGeometry_BP5mm_4e9protons.root"
+root5 = dir_main + "/data/" + "base_100ep_optimized5mm_training_pred.root"
+root6 = dir_main + "/data/" + "base_100ep_optimized5mm_test_pred.root"
 
 
 #################################################################################################################
@@ -222,6 +224,6 @@ def npz_train_test_split_awal(filename, r):
 
 #################################################################################################################
 
-# generate_npz_resultsMC(root1, root2, "optimized_0mm_MCTRUTH.npz")
+generate_npz_resultsMC(root1, root2, root3, "optimized_0mm_MCTRUTH.npz")
 # generate_npz_data(root3, "optimized_5mm")
 # npz_train_test_split_awal(dir_main + "/data/" + "optimized_0mm.npz", 0.8)
