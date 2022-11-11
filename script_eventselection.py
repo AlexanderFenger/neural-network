@@ -54,8 +54,8 @@ def print_classifier_stat(df):
     print("matched: ", n_matched)
 
 
-# print_classifier_stat(mc_0mm)
-# print_classifier_stat(mc_5mm)
+print_classifier_stat(mc_0mm)
+print_classifier_stat(mc_5mm)
 
 
 ###########################################################################################
@@ -271,7 +271,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
                width=width, align="center", color="tab:cyan", label="NN-only")
     axs[0].bar(bins[1:] - width / 2, hist_0mm_both, bottom=hist_0mm_non + hist_0mm_cb + hist_0mm_nn,
                width=width, align="center", color="tab:olive", label="CB/NN")
-    axs[1].set_xlabel("position [mm]")
+    axs[1].set_xlabel(x_label)
     axs[1].set_ylabel("counts (bin-normalized)")
     axs[1].set_xlim(bins[1], bins[idx_0mm + 1])
     axs[1].set_ylim(0.0, 1.1)
@@ -293,7 +293,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
                        hist_0mm_nn[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm]),
                width=width, align="center", color="tab:olive", label="CB/NN")
     fig.tight_layout()
-    axs[0].legend(loc="upper left")
+    axs[0].legend(loc="upper right")
     if save_plots:
         plt.savefig(dir_plots + "histstacked_" + quantity + "_0mm.png")
     else:
@@ -314,7 +314,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
                width=width, align="center", color="tab:cyan", label="NN-only")
     axs[0].bar(bins[1:] - width / 2, hist_5mm_both, bottom=hist_5mm_non + hist_5mm_cb + hist_5mm_nn,
                width=width, align="center", color="tab:olive", label="CB/NN")
-    axs[1].set_xlabel("position [mm]")
+    axs[1].set_xlabel(x_label)
     axs[1].set_ylabel("counts (bin-normalized)")
     axs[1].set_xlim(bins[1], bins[idx_5mm + 1])
     axs[1].set_ylim(0.0, 1.1)
@@ -336,7 +336,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
                        hist_5mm_nn[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm]),
                width=width, align="center", color="tab:olive", label="CB/NN")
     fig.tight_layout()
-    axs[0].legend(loc="upper left")
+    axs[0].legend(loc="upper right")
     if save_plots:
         plt.savefig(dir_plots + "histstacked_" + quantity + "_5mm.png")
     else:
@@ -479,5 +479,5 @@ def plot_scatter_energy(ary_idx1, ary_idx2, quantity1, quantity2, x_label, y_lab
 # plot_dist_stacked(5, np.arange(0.0, 6.0, 0.1), "MC_energy_p", "Energy [MeV]", correct=False, save_plots=True)
 # plot_dist_stacked(23, np.arange(-98.8 / 2 - 1.3 / 2, 98.8 / 2 + 1.3 / 2, 1.3), "MCPosition_p.z", "position [mm]", correct=False, save_plots=True)
 
-plot_scatter_energy(4, 5, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=True)
-#plot_scatter_energy(6, 7, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=False)
+# plot_scatter_energy(4, 5, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=True)
+# plot_scatter_energy(6, 7, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=False)
