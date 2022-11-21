@@ -33,7 +33,7 @@ def generate_npz_resultsMC(root_mc, root_nn_training, root_nn_test, npz_filename
     # define dataframe header
     df_header = ["EventNumber",
                  "MCSimulatedEventType",
-                 "BCIdentified",
+                 "CBIdentified",
                  "NNIdentified",
                  "MCEnergy_e",
                  "MCEnergy_p",
@@ -56,7 +56,8 @@ def generate_npz_resultsMC(root_mc, root_nn_training, root_nn_test, npz_filename
                  "MCPosition_p.y",
                  "MCPosition_p.z",
                  "IdealComptonEvent",
-                 "origin_set"]
+                 "origin_set",
+                 "MCEnergyPrimary"]
 
     # create RootData object
     root_mc_data = Simulation(root_mc)
@@ -93,7 +94,8 @@ def generate_npz_resultsMC(root_mc, root_nn_training, root_nn_test, npz_filename
                         event.real_p_position.y,
                         event.real_p_position.z,
                         event.is_ideal_compton,
-                        0]
+                        0,
+                        event.real_primary_energy]
 
         # write event data into dataframe
         df[i, :] = df_row
@@ -224,6 +226,6 @@ def npz_train_test_split_awal(filename, r):
 
 #################################################################################################################
 
-generate_npz_resultsMC(root1, root2, root3, "optimized_0mm_MCTRUTH.npz")
+generate_npz_resultsMC(root4, root5, root6, "optimized_5mm_MCTRUTH.npz")
 # generate_npz_data(root3, "optimized_5mm")
 # npz_train_test_split_awal(dir_main + "/data/" + "optimized_0mm.npz", 0.8)

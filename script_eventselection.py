@@ -54,8 +54,8 @@ def print_classifier_stat(df):
     print("matched: ", n_matched)
 
 
-print_classifier_stat(mc_0mm)
-print_classifier_stat(mc_5mm)
+# print_classifier_stat(mc_0mm)
+# print_classifier_stat(mc_5mm)
 
 
 ###########################################################################################
@@ -268,7 +268,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
     axs[0].bar(bins[1:] - width / 2, hist_0mm_cb, bottom=hist_0mm_non,
                width=width, align="center", color="tab:blue", label="CB-only")
     axs[0].bar(bins[1:] - width / 2, hist_0mm_nn, bottom=hist_0mm_non + hist_0mm_cb,
-               width=width, align="center", color="tab:cyan", label="NN-only")
+               width=width, align="center", color="tab:red", label="NN-only")
     axs[0].bar(bins[1:] - width / 2, hist_0mm_both, bottom=hist_0mm_non + hist_0mm_cb + hist_0mm_nn,
                width=width, align="center", color="tab:olive", label="CB/NN")
     axs[1].set_xlabel(x_label)
@@ -286,7 +286,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
     axs[1].bar(bins[1:idx_0mm + 1] - width / 2, hist_0mm_nn[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
                bottom=(hist_0mm_non[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm] +
                        hist_0mm_cb[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm]),
-               width=width, align="center", color="tab:cyan", label="NN")
+               width=width, align="center", color="tab:red", label="NN")
     axs[1].bar(bins[1:idx_0mm + 1] - width / 2, hist_0mm_both[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
                bottom=(hist_0mm_non[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm] +
                        hist_0mm_cb[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm] +
@@ -311,7 +311,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
     axs[0].bar(bins[1:] - width / 2, hist_5mm_cb, bottom=hist_5mm_non,
                width=width, align="center", color="tab:blue", label="CB-only")
     axs[0].bar(bins[1:] - width / 2, hist_5mm_nn, bottom=hist_5mm_non + hist_5mm_cb,
-               width=width, align="center", color="tab:cyan", label="NN-only")
+               width=width, align="center", color="tab:red", label="NN-only")
     axs[0].bar(bins[1:] - width / 2, hist_5mm_both, bottom=hist_5mm_non + hist_5mm_cb + hist_5mm_nn,
                width=width, align="center", color="tab:olive", label="CB/NN")
     axs[1].set_xlabel(x_label)
@@ -329,7 +329,7 @@ def plot_dist_stacked(ary_idx, bins, quantity, x_label, correct=False, save_plot
     axs[1].bar(bins[1:idx_5mm + 1] - width / 2, hist_5mm_nn[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm],
                bottom=(hist_5mm_non[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm] +
                        hist_5mm_cb[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm]),
-               width=width, align="center", color="tab:cyan", label="NN")
+               width=width, align="center", color="tab:red", label="NN")
     axs[1].bar(bins[1:idx_5mm + 1] - width / 2, hist_5mm_both[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm],
                bottom=(hist_5mm_non[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm] +
                        hist_5mm_cb[:idx_5mm] / hist_5mm_idealcompton[:idx_5mm] +
@@ -351,6 +351,8 @@ def plot_scatter_energy(ary_idx1, ary_idx2, quantity1, quantity2, x_label, y_lab
     scatter plot are based on event selection:
     None, CB-only, NN-only, CB/NN
     """
+    from matplotlib.colors import LogNorm
+    bins = np.arange(0.0, 20.0, 0.5)
 
     if correct:
         cb_con = [1, 3]
@@ -410,27 +412,31 @@ def plot_scatter_energy(ary_idx1, ary_idx2, quantity1, quantity2, x_label, y_lab
     plt.suptitle("Scatter plot {}/{} (0mm)".format(quantity1, quantity2))
     axs[0, 0].set_xlim(0, 20)
     axs[0, 0].set_ylim(0, 20)
-    axs[0, 0].scatter(ary1_0mm_non, ary2_0mm_non, s=0.75, color="tab:green", label="None")
+    h0 = axs[0, 0].hist2d(ary1_0mm_non, ary2_0mm_non, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="None")
+    fig.colorbar(h0[3], ax=axs[0, 0])
+    axs[0, 0].text(x=15, y=18, s="None")
     axs[0, 0].set_ylabel(y_label)
-    axs[0, 0].legend()
 
     axs[0, 1].set_xlim(0, 20)
     axs[0, 1].set_ylim(0, 20)
-    axs[0, 1].scatter(ary1_0mm_cb, ary2_0mm_cb, s=0.75, color="tab:blue", label="CB-only")
-    axs[0, 1].legend()
+    h1 = axs[0, 1].hist2d(ary1_0mm_cb, ary2_0mm_cb, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="CB-only")
+    fig.colorbar(h1[3], ax=axs[0, 1])
+    axs[0, 1].text(x=13, y=18, s="CB-Only")
 
     axs[1, 0].set_xlim(0, 20)
     axs[1, 0].set_ylim(0, 20)
-    axs[1, 0].scatter(ary1_0mm_nn, ary2_0mm_nn, s=0.75, color="tab:cyan", label="NN-only")
+    h2 = axs[1, 0].hist2d(ary1_0mm_nn, ary2_0mm_nn, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="NN-only")
+    fig.colorbar(h2[3], ax=axs[1, 0])
+    axs[1, 0].text(x=13, y=18, s="NN-Only")
     axs[1, 0].set_xlabel(x_label)
     axs[1, 0].set_ylabel(y_label)
-    axs[1, 0].legend()
 
     axs[1, 1].set_xlim(0, 20)
     axs[1, 1].set_ylim(0, 20)
-    axs[1, 1].scatter(ary1_0mm_both, ary2_0mm_both, s=0.75, color="tab:olive", label="CB/NN")
+    h3 = axs[1, 1].hist2d(ary1_0mm_both, ary2_0mm_both, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="CB/NN")
+    fig.colorbar(h3[3], ax=axs[1, 1])
+    axs[1, 1].text(x=14, y=18, s="CB/NN")
     axs[1, 1].set_xlabel(x_label)
-    axs[1, 1].legend()
     if save_plots:
         plt.savefig(dir_plots + "scatterplot_" + quantity1 + quantity2 + "_0mm.png")
     else:
@@ -441,43 +447,396 @@ def plot_scatter_energy(ary_idx1, ary_idx2, quantity1, quantity2, x_label, y_lab
     plt.suptitle("Scatter plot {}/{} (5mm)".format(quantity1, quantity2))
     axs[0, 0].set_xlim(0, 20)
     axs[0, 0].set_ylim(0, 20)
-    axs[0, 0].scatter(ary1_5mm_non, ary2_5mm_non, s=0.75, color="tab:green", label="None")
+    h0 = axs[0, 0].hist2d(ary1_5mm_non, ary2_5mm_non, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="None")
+    fig.colorbar(h0[3], ax=axs[0, 0])
+    axs[0, 0].text(x=15, y=18, s="None")
     axs[0, 0].set_ylabel(y_label)
-    axs[0, 0].legend()
 
     axs[0, 1].set_xlim(0, 20)
     axs[0, 1].set_ylim(0, 20)
-    axs[0, 1].scatter(ary1_5mm_cb, ary2_5mm_cb, s=0.75, color="tab:blue", label="CB-only")
-    axs[0, 1].legend()
+    h1 = axs[0, 1].hist2d(ary1_5mm_cb, ary2_5mm_cb, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="CB-only")
+    fig.colorbar(h1[3], ax=axs[0, 1])
+    axs[0, 1].text(x=13, y=18, s="CB-Only")
 
     axs[1, 0].set_xlim(0, 20)
     axs[1, 0].set_ylim(0, 20)
-    axs[1, 0].scatter(ary1_5mm_nn, ary2_5mm_nn, s=0.75, color="tab:cyan", label="NN-only")
+    h2 = axs[1, 0].hist2d(ary1_5mm_nn, ary2_5mm_nn, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="NN-only")
+    fig.colorbar(h2[3], ax=axs[1, 0])
+    axs[1, 0].text(x=13, y=18, s="NN-Only")
     axs[1, 0].set_xlabel(x_label)
     axs[1, 0].set_ylabel(y_label)
-    axs[1, 0].legend()
 
     axs[1, 1].set_xlim(0, 20)
     axs[1, 1].set_ylim(0, 20)
-    axs[1, 1].scatter(ary1_5mm_both, ary2_5mm_both, s=0.75, color="tab:olive", label="CB/NN")
+    h3 = axs[1, 1].hist2d(ary1_5mm_both, ary2_5mm_both, norm=LogNorm(vmin=1, vmax=12000), bins=bins, label="CB/NN")
+    fig.colorbar(h3[3], ax=axs[1, 1])
+    axs[1, 1].text(x=14, y=18, s="CB/NN")
     axs[1, 1].set_xlabel(x_label)
-    axs[1, 1].legend()
     if save_plots:
         plt.savefig(dir_plots + "scatterplot_" + quantity1 + quantity2 + "_5mm.png")
     else:
         plt.show()
 
 
-#######################################################################################################################
+def plot_scatter_energy_source_pos(correct=False, save_plots=False):
+    from matplotlib.colors import LogNorm
+    bins1 = np.arange(-30, 10.0, 1.0)
+    bins2 = np.arange(0.0, 20.0, 0.5)
+
+    ary_idx1 = 8
+    ary_idx2 = 26
+
+    if correct:
+        cb_con = [1, 3]
+        nn_con = [2]
+    else:
+        cb_con = [-1, -3, 1, 3]
+        nn_con = [0, 1, 2]
+
+    # grab data depending on event selection:
+    # Total: all ideal compton events
+    # Non-selected, NN non-CB selected, selected, CB non-NN selected, NN/CB selected
+    # selection of quantity 1
+    # CB-selected but not NN-selected
+    ary1_0mm_all = [mc_0mm[i, ary_idx1] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 24])]
+    ary1_5mm_all = [mc_5mm[i, ary_idx1] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 24])]
+
+    # selection of quantity 2
+    ary2_0mm_all = [mc_0mm[i, ary_idx2] for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 24])]
+    ary2_5mm_all = [mc_5mm[i, ary_idx2] for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 24])]
+
+    # create scatter plot
+    fig = plt.figure()
+    plt.title("Scatter plot {}/{} (0mm)".format("MCSource_position.z", "MCEnergyPrimary"))
+    plt.xlabel("Position [mm]")
+    plt.ylabel("Energy primary [MeV]")
+    h0 = plt.hist2d(ary1_0mm_all, ary2_0mm_all, norm=LogNorm(), bins=[bins1, bins2])
+    plt.colorbar(h0[3])
+    if save_plots:
+        plt.savefig(dir_plots + "scatterplot_" + "MCSource_position.z" + "MCEnergyPrimary" + "_0mm.png")
+    else:
+        plt.show()
+
+    # create scatter plot
+    fig = plt.figure()
+    plt.title("Scatter plot {}/{} (5mm)".format("MCSource_position.z", "MCEnergyPrimary"))
+    plt.xlabel("Position [mm]")
+    plt.ylabel("Energy primary [MeV]")
+    h0 = plt.hist2d(ary1_5mm_all, ary2_5mm_all, norm=LogNorm(), bins=[bins1, bins2])
+    plt.colorbar(h0[3])
+    if save_plots:
+        plt.savefig(dir_plots + "scatterplot_" + "MCSource_position.z" + "MCEnergyPrimary" + "_5mm.png")
+    else:
+        plt.show()
+
+
+def energy_cut(correct=False, save_plots=False, energycut=False):
+    import matplotlib.patches as mpatches
+
+    ary_idx = 4
+    bins = np.arange(0.0, 10.0, 0.1)
+    width = bins[1] - bins[0]  # bins should always have same width
+
+    if correct:
+        cb_con = [1, 3]
+        nn_con = [2]
+    else:
+        cb_con = [-1, -3, 1, 3]
+        nn_con = [0, 1, 2]
+
+    # energycut
+    a = 0.10
+    if energycut:
+        for i in range(mc_0mm.shape[0]):
+            rand = np.random.uniform()
+            # energy filter
+            if rand > 1 / np.exp(np.sum(mc_0mm[i, 4:6]) * a):
+                mc_0mm[i, 2] = 0
+            else:
+                continue
+
+    if energycut:
+        for i in range(mc_5mm.shape[0]):
+            rand = np.random.uniform()
+            # energy filter
+            if rand > 1 / np.exp(np.sum(mc_5mm[i, 4:6]) * a):
+                mc_5mm[i, 2] = 0
+            else:
+                continue
+
+    # all selected events are based on their
+    ary_0mm_idealcompton = [np.sum(mc_0mm[i, 4:6]) for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 24])]
+    ary_5mm_idealcompton = [np.sum(mc_5mm[i, 4:6]) for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 24])]
+    # CB-selected
+    ary_0mm_cb = [np.sum(mc_0mm[i, 4:6]) for i in range(mc_0mm.shape[0]) if
+                  (mc_0mm[i, 24] and mc_0mm[i, 2] in cb_con)]
+    ary_5mm_cb = [np.sum(mc_5mm[i, 4:6]) for i in range(mc_5mm.shape[0]) if
+                  (mc_5mm[i, 24] and mc_5mm[i, 2] in cb_con)]
+    # NN-selected
+    ary_0mm_nn = [np.sum(mc_0mm[i, 4:6]) for i in range(mc_0mm.shape[0]) if
+                  (mc_0mm[i, 24] and mc_0mm[i, 3] in nn_con)]
+    ary_5mm_nn = [np.sum(mc_5mm[i, 4:6]) for i in range(mc_5mm.shape[0]) if
+                  (mc_5mm[i, 24] and mc_5mm[i, 3] in nn_con)]
+    # Non-selected
+    ary_0mm_non_nn = [np.sum(mc_0mm[i, 4:6]) for i in range(mc_0mm.shape[0]) if
+                      (mc_0mm[i, 24] and mc_0mm[i, 3] not in nn_con)]
+    ary_5mm_non_nn = [np.sum(mc_5mm[i, 4:6]) for i in range(mc_5mm.shape[0]) if
+                      (mc_5mm[i, 24] and mc_5mm[i, 3] not in nn_con)]
+
+    ary_0mm_non_cb = [np.sum(mc_0mm[i, 4:6]) for i in range(mc_0mm.shape[0]) if
+                      (mc_0mm[i, 24] and mc_0mm[i, 2] not in cb_con)]
+    ary_5mm_non_cb = [np.sum(mc_5mm[i, 4:6]) for i in range(mc_5mm.shape[0]) if
+                      (mc_5mm[i, 24] and mc_5mm[i, 2] not in cb_con)]
+
+    event_count_0mm = len([np.sum(mc_0mm[i, 4:6]) for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 2]) in cb_con])
+    event_count_5mm = len([np.sum(mc_5mm[i, 4:6]) for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 2]) in cb_con])
+    print("event_count 0mm: ", event_count_0mm)
+    print("event_count 5mm: ", event_count_5mm)
+    print(len(ary_0mm_non_cb), len(ary_0mm_cb), len(ary_0mm_non_cb) + len(ary_0mm_cb))
+
+    # create histograms
+    hist_0mm_idealcompton, _ = np.histogram(ary_0mm_idealcompton, bins=bins)
+    hist_5mm_idealcompton, _ = np.histogram(ary_5mm_idealcompton, bins=bins)
+    hist_0mm_cb, _ = np.histogram(ary_0mm_cb, bins=bins)
+    hist_5mm_cb, _ = np.histogram(ary_5mm_cb, bins=bins)
+    hist_0mm_nn, _ = np.histogram(ary_0mm_nn, bins=bins)
+    hist_5mm_nn, _ = np.histogram(ary_5mm_nn, bins=bins)
+    hist_0mm_non_nn, _ = np.histogram(ary_0mm_non_nn, bins=bins)
+    hist_5mm_non_nn, _ = np.histogram(ary_5mm_non_nn, bins=bins)
+    hist_0mm_non_cb, _ = np.histogram(ary_0mm_non_cb, bins=bins)
+    hist_5mm_non_cb, _ = np.histogram(ary_5mm_non_cb, bins=bins)
+
+    # Define x-limits of stacked histograms
+    # either the second last bin entry or the first bin with zero entries (due to normalization)
+    # yes you can use np.where but that function is dumb
+    idx_0mm = 0
+    idx_5mm = 0
+    for i in range(len(hist_0mm_idealcompton)):
+        if hist_0mm_idealcompton[i] == 0:
+            idx_0mm = int(i)
+            break
+    for j in range(len(hist_5mm_idealcompton)):
+        if hist_5mm_idealcompton[j] == 0:
+            idx_5mm = int(j)
+            break
+
+    #######################################################
+    # new plot
+
+    # normalized stacked bar plot
+    fig, axs = plt.subplots(4, 1, gridspec_kw={'height_ratios': [3, 1, 1, 1]})
+    axs[0].set_title("MCEnergy_primary stacked histogram (0mm)")
+    axs[0].set_ylabel("counts")
+    axs[0].set_xlim(bins[idx_0mm], bins[-1])
+    axs[0].errorbar(bins[idx_0mm + 2:] - width / 2, hist_0mm_idealcompton[idx_0mm + 1:],
+                    np.sqrt(hist_0mm_idealcompton[idx_0mm + 1:]),
+                    color="black", fmt=".", label="Ideal Compton")
+
+    # axs[1].set_ylabel("counts (bin-normalized)")
+    axs[1].set_xlim(bins[idx_0mm], bins[-1])
+    axs[1].set_ylim(0.0, 1.1)
+    axs[1].errorbar(bins[idx_0mm + 2:] - width / 2,
+                    hist_0mm_idealcompton[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+                    np.sqrt(hist_0mm_idealcompton[idx_0mm + 1:]) / hist_0mm_idealcompton[idx_0mm + 1:],
+                    color="black", fmt=".", label="Ideal Compton")
+    axs[1].bar(bins[idx_0mm + 2:] - width / 2, hist_0mm_non_nn[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+               width=width, align="center", color="tab:green", label="None")
+    axs[1].bar(bins[idx_0mm + 2:] - width / 2, hist_0mm_nn[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+               bottom=hist_0mm_non_nn[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+               width=width, align="center", color="tab:red", label="NN")
+    axs[2].errorbar(bins[idx_0mm + 2:] - width / 2,
+                    hist_0mm_idealcompton[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+                    np.sqrt(hist_0mm_idealcompton[idx_0mm + 1:]) / hist_0mm_idealcompton[idx_0mm + 1:],
+                    color="black", fmt=".", label="Ideal Compton")
+    axs[2].bar(bins[idx_0mm + 2:] - width / 2, hist_0mm_non_cb[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+               width=width, align="center", color="tab:green", label="None")
+    axs[2].bar(bins[idx_0mm + 2:] - width / 2, hist_0mm_cb[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+               bottom=hist_0mm_non_cb[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:],
+               width=width, align="center", color="tab:blue", label="CB")
+    axs[2].set_ylabel("")
+    axs[2].set_xlim(bins[idx_0mm], bins[-1])
+    axs[2].set_ylim(0.0, 1.1)
+    axs[3].plot(bins[idx_0mm + 2:] - width / 2,
+                hist_0mm_cb[idx_0mm + 1:] / hist_0mm_idealcompton[idx_0mm + 1:] - hist_0mm_nn[
+                                                                                  idx_0mm + 1:] / hist_0mm_idealcompton[
+                                                                                                  idx_0mm + 1:],
+                color="red")
+    axs[3].hlines(y=0, xmin=bins[idx_0mm + 1] - width / 2, xmax=bins[-1] - width / 2, linestyles="--", color="black")
+    axs[3].set_xlabel("Energy [MeV]")
+    axs[3].set_ylabel(r"$\frac{(n_{CB}-n_{NN})}{n_{IC}}$")
+    axs[3].set_xlim(bins[idx_0mm], bins[-1])
+    fig.tight_layout()
+
+    lblack, _ = axs[0].get_legend_handles_labels()
+    lblack.append(mpatches.Patch(color='tab:red', label='NN'))
+    lblack.append(mpatches.Patch(color='tab:blue', label='CB'))
+    lblack.append(mpatches.Patch(color='tab:green', label='None'))
+    axs[0].legend(loc="upper right", handles=lblack)
+    if save_plots:
+        plt.savefig(dir_plots + "energycut_" + str(energycut) + "_0mm.png")
+    else:
+        plt.show()
+
+
+########################################################################################################################
+
+def position_cut(correct=False, save_plots=False, poscut=False):
+    import matplotlib.patches as mpatches
+
+    ary_idx = 4
+    bins = np.arange(-80, 20, 1.0)
+    width = bins[1] - bins[0]  # bins should always have same width
+
+    if correct:
+        cb_con = [1, 3]
+        nn_con = [2]
+    else:
+        cb_con = [-1, -3, 1, 3]
+        nn_con = [0, 1, 2]
+
+    # energycut
+    a = 0.040
+    if poscut:
+        for i in range(mc_0mm.shape[0]):
+            if mc_0mm[i, 8] < -12:
+                continue
+
+            rand = np.random.uniform()
+            # energy filter
+            if rand > 1 / np.exp((mc_0mm[i, 8] + 12) * a):
+                mc_0mm[i, 2] = 0
+            else:
+                continue
+
+    # all selected events are based on their
+    ary_0mm_idealcompton = [np.sum(mc_0mm[i, 8]) for i in range(mc_0mm.shape[0]) if (mc_0mm[i, 24])]
+    ary_5mm_idealcompton = [np.sum(mc_5mm[i, 8]) for i in range(mc_5mm.shape[0]) if (mc_5mm[i, 24])]
+
+    # CB-selected
+    ary_0mm_cb = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if
+                  (mc_0mm[i, 24] and mc_0mm[i, 2] in cb_con)]
+    ary_5mm_cb = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if
+                  (mc_5mm[i, 24] and mc_5mm[i, 2] in cb_con)]
+    # NN-selected
+    ary_0mm_nn = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if
+                  (mc_0mm[i, 24] and mc_0mm[i, 3] in nn_con)]
+    ary_5mm_nn = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if
+                  (mc_5mm[i, 24] and mc_5mm[i, 3] in nn_con)]
+    # Non-selected
+    ary_0mm_non_nn = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if
+                      (mc_0mm[i, 24] and mc_0mm[i, 3] not in nn_con)]
+    ary_5mm_non_nn = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if
+                      (mc_5mm[i, 24] and mc_5mm[i, 3] not in nn_con)]
+
+    ary_0mm_non_cb = [mc_0mm[i, 8] for i in range(mc_0mm.shape[0]) if
+                      (mc_0mm[i, 24] and mc_0mm[i, 2] not in cb_con)]
+    ary_5mm_non_cb = [mc_5mm[i, 8] for i in range(mc_5mm.shape[0]) if
+                      (mc_5mm[i, 24] and mc_5mm[i, 2] not in cb_con)]
+
+    # create histograms
+    hist_0mm_idealcompton, _ = np.histogram(ary_0mm_idealcompton, bins=bins)
+    hist_5mm_idealcompton, _ = np.histogram(ary_5mm_idealcompton, bins=bins)
+    hist_0mm_cb, _ = np.histogram(ary_0mm_cb, bins=bins)
+    hist_5mm_cb, _ = np.histogram(ary_5mm_cb, bins=bins)
+    hist_0mm_nn, _ = np.histogram(ary_0mm_nn, bins=bins)
+    hist_5mm_nn, _ = np.histogram(ary_5mm_nn, bins=bins)
+    hist_0mm_non_nn, _ = np.histogram(ary_0mm_non_nn, bins=bins)
+    hist_5mm_non_nn, _ = np.histogram(ary_5mm_non_nn, bins=bins)
+    hist_0mm_non_cb, _ = np.histogram(ary_0mm_non_cb, bins=bins)
+    hist_5mm_non_cb, _ = np.histogram(ary_5mm_non_cb, bins=bins)
+
+    # Define x-limits of stacked histograms
+    # either the second last bin entry or the first bin with zero entries (due to normalization)
+    # yes you can use np.where but that function is dumb
+    idx_0mm = 0
+    idx_5mm = 0
+    for i in range(len(hist_0mm_idealcompton)):
+        if hist_0mm_idealcompton[i] == 0:
+            idx_0mm = int(i)
+            break
+    for j in range(len(hist_5mm_idealcompton)):
+        if hist_5mm_idealcompton[j] == 0:
+            idx_5mm = int(j)
+            break
+
+    idx_0mm -= 1
+
+    #######################################################
+    # new plot
+
+    # normalized stacked bar plot
+    fig, axs = plt.subplots(4, 1, gridspec_kw={'height_ratios': [3, 1, 1, 1]})
+    axs[0].set_title("MCSourcePosition.z stacked histogram (0mm)")
+    axs[0].set_ylabel("counts")
+    axs[0].set_xlim(bins[1], bins[idx_0mm])
+    axs[0].errorbar(bins[:idx_0mm] - width / 2, hist_0mm_idealcompton[:idx_0mm],
+                    np.sqrt(hist_0mm_idealcompton[:idx_0mm]),
+                    color="black", fmt=".", label="Ideal Compton")
+
+    axs[1].set_xlim(bins[1], bins[idx_0mm])
+    axs[1].set_ylim(0.0, 1.1)
+    axs[1].errorbar(bins[:idx_0mm] - width / 2,
+                    hist_0mm_idealcompton[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+                    np.sqrt(hist_0mm_idealcompton[:idx_0mm]) / hist_0mm_idealcompton[:idx_0mm],
+                    color="black", fmt=".", label="Ideal Compton")
+    axs[1].bar(bins[:idx_0mm] - width / 2, hist_0mm_non_nn[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+               width=width, align="center", color="tab:green", label="None")
+    axs[1].bar(bins[:idx_0mm] - width / 2, hist_0mm_nn[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+               bottom=hist_0mm_non_nn[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+               width=width, align="center", color="tab:red", label="NN")
+
+    axs[2].set_xlim(bins[1], bins[idx_0mm])
+    axs[2].set_ylim(0.0, 1.1)
+    axs[2].errorbar(bins[:idx_0mm] - width / 2,
+                    hist_0mm_idealcompton[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+                    np.sqrt(hist_0mm_idealcompton[:idx_0mm]) / hist_0mm_idealcompton[:idx_0mm],
+                    color="black", fmt=".", label="Ideal Compton")
+    axs[2].bar(bins[:idx_0mm] - width / 2, hist_0mm_non_cb[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+               width=width, align="center", color="tab:green", label="None")
+    axs[2].bar(bins[:idx_0mm] - width / 2, hist_0mm_cb[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+               bottom=hist_0mm_non_cb[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm],
+               width=width, align="center", color="tab:blue", label="CB")
+
+    axs[3].set_xlim(bins[1], bins[idx_0mm])
+    axs[3].plot(bins[:idx_0mm] - width / 2,
+                hist_0mm_cb[:idx_0mm] / hist_0mm_idealcompton[:idx_0mm] - hist_0mm_nn[
+                                                                              :idx_0mm] / hist_0mm_idealcompton[
+                                                                                          :idx_0mm],
+                color="red")
+    axs[3].hlines(y=0, xmin=bins[0] - width / 2, xmax=bins[idx_0mm] - width / 2, linestyles="--", color="black")
+    axs[3].set_xlabel("Energy [MeV]")
+    axs[3].set_ylabel(r"$\frac{(n_{CB}-n_{NN})}{n_{IC}}$")
+    fig.tight_layout()
+
+    lblack, _ = axs[0].get_legend_handles_labels()
+    lblack.append(mpatches.Patch(color='tab:red', label='NN'))
+    lblack.append(mpatches.Patch(color='tab:blue', label='CB'))
+    lblack.append(mpatches.Patch(color='tab:green', label='None'))
+    axs[0].legend(loc="upper left", handles=lblack)
+    if save_plots:
+        plt.savefig(dir_plots + "positioncut_" + str(poscut) + "_0mm.png")
+    else:
+        plt.show()
+
+
+########################################################################################################################
 
 
 # plot_dist_event_selection(8, np.arange(-80, 20, 1.0), "MCPosition_source.z", "position [mm]", save_plots=False)
 
 # stacked histograms previous plots
-# plot_dist_stacked(8, np.arange(-80, 20, 1.0), "MCPosition_source.z", "position [mm]", correct=True, save_plots=False)
+# plot_dist_stacked(8, np.arange(-80, 20, 1.0), "MCPosition_source.z", "position [mm]", correct=False, save_plots=False)
 # plot_dist_stacked(4, np.arange(0.0, 6.0, 0.1), "MC_energy_e", "Energy [MeV]", correct=False, save_plots=True)
 # plot_dist_stacked(5, np.arange(0.0, 6.0, 0.1), "MC_energy_p", "Energy [MeV]", correct=False, save_plots=True)
-# plot_dist_stacked(23, np.arange(-98.8 / 2 - 1.3 / 2, 98.8 / 2 + 1.3 / 2, 1.3), "MCPosition_p.z", "position [mm]", correct=False, save_plots=True)
+# plot_dist_stacked(20, np.arange(-98.8 / 2 - 1.3 / 2, 98.8 / 2 + 1.3 / 2, 1.3), "MCPosition_e.z", "position [mm]",
+#                  correct=False, save_plots=True)
 
-# plot_scatter_energy(4, 5, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=True)
+# plot_scatter_energy(4, 5, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=False)
 # plot_scatter_energy(6, 7, "MCEnergy_e", "MCEnergy_p", "e Energy [MeV]", "p Energy [MeV]", correct=False, save_plots=False)
+# plot_scatter_energy_source_pos(correct=False, save_plots=True)
+
+# energy_cut(save_plots=False)
+# energy_cut(energycut=True, save_plots=False)
+
+position_cut(save_plots=False)
+position_cut(save_plots=False, poscut=True)

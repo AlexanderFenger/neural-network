@@ -130,8 +130,8 @@ def export_npz():
     from sificc_lib.root_files import root_files
     from sificc_lib_awal.DataModel import DataModel
 
-    simulation = Simulation(dir_main + root_files.optimized_0mm)
-    DataModel.generate_training_data(simulation=simulation, output_name=dir_main + "/data/" + 'optimized_5mm.npz')
+    simulation = Simulation(dir_main + root_files.optimized_5mm_local, clusters_limit=8)
+    DataModel.generate_training_data(simulation=simulation, output_name=dir_main + "/data/" + 'optimized_5mm_8cl.npz')
 
 export_npz()
-train_test_split("optimized_0mm", 0.9)
+
